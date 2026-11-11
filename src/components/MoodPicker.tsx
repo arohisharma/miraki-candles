@@ -5,86 +5,85 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { formatPrice, products } from "@/data/products";
 import ProductMedia from "./ProductMedia";
-import Embers from "./Embers";
 
 const ease = [0.22, 1, 0.36, 1] as const;
+const ARCH = "rounded-t-full rounded-b-[2rem]";
 
+/** Pick a mood; the whole section melts into that candle's colour. */
 export default function MoodPicker() {
   const [index, setIndex] = useState(0);
   const product = products[index];
 
   return (
-    <section className="mx-4 my-6 overflow-hidden rounded-[2rem] bg-espresso text-background sm:mx-6">
-      <div className="relative">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_75%_50%,rgba(201,166,107,0.2),transparent_60%)]" />
-        <Embers count={12} />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-6 py-20 md:grid-cols-2 md:py-28">
-          <div>
-            <p className="eyebrow">Find your ritual</p>
-            <h2 className="mt-4 text-4xl leading-tight sm:text-6xl">
-              How do you want to <span className="italic text-gold-light">feel</span> tonight?
-            </h2>
+    <motion.section
+      animate={{ backgroundColor: product.tint }}
+      transition={{ duration: 1, ease }}
+      className="mx-3 overflow-hidden rounded-[2.5rem] sm:mx-6 sm:rounded-[3.5rem]"
+      style={{ backgroundColor: products[0].tint }}
+    >
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 md:grid-cols-2 md:py-28">
+        <div>
+          <p className="eyebrow">Find your ritual</p>
+          <h2 className="mt-4 text-5xl leading-[1.02] sm:text-7xl">
+            How do you want to <span className="italic text-clay">feel</span> tonight?
+          </h2>
 
-            <div className="mt-8 flex flex-wrap gap-3" role="group" aria-label="Choose a mood">
-              {products.map((p, i) => (
-                <button
-                  key={p.slug}
-                  type="button"
-                  aria-pressed={i === index}
-                  onClick={() => setIndex(i)}
-                  className={`rounded-full px-5 py-2 text-xs uppercase tracking-[0.2em] transition-all duration-500 [transition-timing-function:var(--ease-pour)] ${
-                    i === index
-                      ? "bg-gold text-espresso shadow-[0_8px_30px_-8px_rgba(201,166,107,0.8)]"
-                      : "text-background/70 ring-1 ring-gold/30 hover:ring-gold/70"
-                  }`}
-                >
-                  {p.mood}
-                </button>
-              ))}
-            </div>
-
-            <div className="mt-10 min-h-48">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={product.slug}
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.5, ease }}
-                >
-                  <h3 className="text-4xl">{product.name}</h3>
-                  <p className="mt-2 text-background/65">{product.tagline}</p>
-                  <p className="mt-4 font-serif text-xl italic text-gold-light">
-                    {product.notes.join(" · ")}
-                  </p>
-                  <Link
-                    href={`/shop/${product.slug}`}
-                    className="link-underline mt-6 inline-block text-xs uppercase tracking-[0.25em] text-gold"
-                  >
-                    Discover · {formatPrice(product.price)} →
-                  </Link>
-                </motion.div>
-              </AnimatePresence>
-            </div>
+          <div className="mt-9 flex flex-wrap gap-3" role="group" aria-label="Choose a mood">
+            {products.map((p, i) => (
+              <button
+                key={p.slug}
+                type="button"
+                aria-pressed={i === index}
+                onClick={() => setIndex(i)}
+                className={`rounded-full px-6 py-2.5 text-xs font-medium uppercase tracking-[0.2em] transition-all duration-500 ease-pour ${
+                  i === index
+                    ? "bg-ink text-ivory shadow-[0_12px_30px_-10px_rgba(51,34,28,0.7)]"
+                    : "bg-ivory/60 text-ink ring-1 ring-ink/10 hover:bg-ivory"
+                }`}
+              >
+                {p.mood}
+              </button>
+            ))}
           </div>
 
-          <div className="flex justify-center [perspective:1200px]">
+          <div className="mt-10 min-h-52">
             <AnimatePresence mode="wait">
               <motion.div
                 key={product.slug}
-                initial={{ opacity: 0, rotateY: -50, y: 24 }}
-                animate={{ opacity: 1, rotateY: 0, y: 0 }}
-                exit={{ opacity: 0, rotateY: 50, y: -12 }}
-                transition={{ duration: 0.7, ease }}
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.5, ease }}
               >
-                <div className="group relative aspect-[4/5] w-64 overflow-hidden rounded-3xl bg-espresso shadow-[0_40px_80px_-30px_rgba(0,0,0,0.8)] ring-1 ring-gold/20 sm:w-80">
-                  <ProductMedia product={product} variant="page" sizes="320px" />
-                </div>
+                <h3 className="text-4xl">{product.name}</h3>
+                <p className="mt-2 text-ink/70">{product.tagline}</p>
+                <p className="mt-4 font-serif text-xl italic text-clay">{product.notes.join(" · ")}</p>
+                <Link href={`/shop/${product.slug}`} className="btn mt-7">
+                  Discover · {formatPrice(product.price)}
+                </Link>
               </motion.div>
             </AnimatePresence>
           </div>
         </div>
+
+        <div className="flex justify-center [perspective:1400px]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={product.slug}
+              initial={{ opacity: 0, rotateY: -55, y: 24 }}
+              animate={{ opacity: 1, rotateY: 0, y: 0 }}
+              exit={{ opacity: 0, rotateY: 55, y: -12 }}
+              transition={{ duration: 0.75, ease }}
+            >
+              <div className={`bg-ivory p-2 shadow-[0_50px_90px_-35px_rgba(51,34,28,0.55)] ${ARCH}`}>
+                <div className={`group relative aspect-[3/4] w-64 overflow-hidden sm:w-80 lg:w-96 ${ARCH}`}>
+                  <ProductMedia product={product} sizes="24rem" />
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

@@ -10,13 +10,14 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import Image from "next/image";
-import Bokeh from "./Bokeh";
 import Embers from "./Embers";
-import HeroCollage from "./HeroCollage";
-import { getProduct } from "@/data/products";
+import HeroArches from "./HeroArches";
+import WaxDrip from "./WaxDrip";
 
 const WORDS = ["Light", "a", "little"];
+const ease = [0.22, 1, 0.36, 1] as const;
+// Everything waits for the page-load curtain to lift.
+const T0 = 1.2;
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -26,121 +27,117 @@ export default function Hero() {
   const my = useMotionValue(0);
   const smx = useSpring(mx, { stiffness: 60, damping: 18 });
   const smy = useSpring(my, { stiffness: 60, damping: 18 });
-  const rotateY = useTransform(smx, [-0.5, 0.5], [-18, 18]);
-  const rotateX = useTransform(smy, [-0.5, 0.5], [10, -10]);
-  const glowX = useTransform(smx, [-0.5, 0.5], [50, -50]);
-  const glowY = useTransform(smy, [-0.5, 0.5], [30, -30]);
-  const emberX = useTransform(smx, [-0.5, 0.5], [-24, 24]);
+
+  // candlelight that follows the cursor
+  const gx = useMotionValue(0);
+  const gy = useMotionValue(0);
+  const sgx = useSpring(gx, { stiffness: 50, damping: 20 });
+  const sgy = useSpring(gy, { stiffness: 50, damping: 20 });
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const candleY = useTransform(scrollYProgress, [0, 1], [0, 130]);
-  const textY = useTransform(scrollYProgress, [0, 1], [0, -70]);
-  const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-
-  const ease = [0.22, 1, 0.36, 1] as const;
-  const backdrop = getProduct("diwali-gift-box")?.image;
+  const archesY = useTransform(scrollYProgress, [0, 1], [0, 110]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[88svh] items-center overflow-hidden bg-espresso text-background"
+      className="bg-sunset relative overflow-hidden rounded-b-[2.5rem] text-ivory sm:rounded-b-[4rem]"
       onPointerMove={(e) => {
         if (reduce || e.pointerType !== "mouse") return;
         const r = e.currentTarget.getBoundingClientRect();
         mx.set((e.clientX - r.left) / r.width - 0.5);
         my.set((e.clientY - r.top) / r.height - 0.5);
+        gx.set(e.clientX - r.left - r.width / 2);
+        gy.set(e.clientY - r.top - r.height / 2);
       }}
     >
-      {backdrop && (
-        <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-          <Image
-            src={backdrop}
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="scale-125 object-cover opacity-35 blur-3xl saturate-150"
-          />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_45%,rgba(27,19,14,0.1),rgba(27,19,14,0.85)_75%)]" />
-        </div>
-      )}
-      <Bokeh />
+      {/* slow drifting colour */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <span className="aurora left-[-10%] top-[10%] h-[34rem] w-[34rem] bg-[#f2a83b]/55" style={{ "--ax": "90px", "--ay": "-50px" } as React.CSSProperties} />
+        <span className="aurora right-[-8%] top-[-10%] h-[38rem] w-[38rem] bg-[#e2557f]/60" style={{ "--ax": "-70px", "--ay": "60px", animationDelay: "-6s" } as React.CSSProperties} />
+        <span className="aurora bottom-[-25%] left-[35%] h-[32rem] w-[32rem] bg-[#f6c08a]/45" style={{ "--ax": "60px", "--ay": "-70px", animationDelay: "-11s" } as React.CSSProperties} />
+      </div>
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute right-[-10%] top-1/2 h-[46rem] w-[46rem] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(240,162,79,0.28),rgba(201,166,107,0.08)_45%,transparent_70%)] lg:right-[2%]"
-        style={{ x: glowX, y: glowY }}
+        className="pointer-events-none absolute left-1/2 top-1/2 -ml-[22rem] -mt-[22rem] h-[44rem] w-[44rem] rounded-full bg-[radial-gradient(circle,rgba(255,240,205,0.4),transparent_62%)] mix-blend-soft-light"
+        style={{ x: sgx, y: sgy }}
       />
-      <motion.div className="absolute inset-0" style={{ x: emberX }}>
-        <Embers count={24} />
-      </motion.div>
+      <Embers count={20} />
 
-      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-6 px-6 py-16 lg:grid-cols-2 lg:gap-10">
-        <motion.div style={{ y: textY, opacity: fade }} className="text-center lg:text-left">
+      {/* the header melts down into the hero */}
+      <WaxDrip className="absolute inset-x-0 top-0 z-20" />
+
+      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-14 px-6 pb-28 pt-40 sm:pt-52 lg:grid-cols-[1.05fr_1fr] lg:gap-8 lg:pb-36 lg:pt-56">
+        <motion.div style={{ y: textY }} className="text-center lg:text-left">
           <motion.p
-            className="eyebrow"
+            className="inline-flex items-center gap-2 rounded-full bg-ivory/15 px-4 py-2 text-[0.68rem] font-medium uppercase tracking-[0.28em] text-ivory ring-1 ring-ivory/30 backdrop-blur-sm"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease }}
+            transition={{ duration: 1, delay: T0, ease }}
           >
-            Small-batch · Hand-poured
+            <span className="text-marigold">✦</span> Handmade luxury candles
           </motion.p>
-          <h1 className="mt-6 text-6xl leading-[1.02] sm:text-8xl">
+
+          <h1 className="mt-7 text-[clamp(3.6rem,10vw,8.5rem)] leading-[0.92]">
             {WORDS.map((w, i) => (
               <motion.span
                 key={w + i}
-                className="mr-[0.25em] inline-block"
-                initial={{ opacity: 0, y: 36, filter: "blur(12px)" }}
+                className="mr-[0.22em] inline-block"
+                initial={{ opacity: 0, y: 50, filter: "blur(14px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{ duration: 1.2, delay: 0.25 + i * 0.16, ease }}
+                transition={{ duration: 1.2, delay: T0 + 0.15 + i * 0.14, ease }}
               >
                 {w}
               </motion.span>
             ))}
             <motion.span
-              className="inline-block bg-gradient-to-b from-gold-light to-gold bg-clip-text pr-1 italic text-transparent"
-              initial={{ opacity: 0, y: 36, filter: "blur(12px)" }}
+              className="inline-block pr-2 italic text-[#ffe2a8]"
+              initial={{ opacity: 0, y: 50, filter: "blur(14px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ duration: 1.4, delay: 0.8, ease }}
+              transition={{ duration: 1.4, delay: T0 + 0.65, ease }}
             >
               calm.
             </motion.span>
           </h1>
+
           <motion.p
-            className="mx-auto mt-7 max-w-md text-lg leading-relaxed text-background/65 lg:mx-0"
+            className="mx-auto mt-8 max-w-md text-lg leading-relaxed text-ivory/90 lg:mx-0"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1.1, ease }}
+            transition={{ duration: 1, delay: T0 + 0.9, ease }}
           >
-            Luxurious candles poured by hand from natural wax, for evenings that feel slow, warm and
-            entirely yours.
+            Sculpted flowers, layered jars and festive gift boxes, poured by hand in small batches
+            for evenings that feel slow, warm and entirely yours.
           </motion.p>
+
           <motion.div
             className="mt-10 flex flex-wrap items-center justify-center gap-4 lg:justify-start"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1.3, ease }}
+            transition={{ duration: 1, delay: T0 + 1.05, ease }}
           >
-            <Link href="/shop" className="btn btn-gold">Explore the collection</Link>
+            <Link href="/shop" className="btn btn-light">Explore the collection</Link>
             <Link href="/about" className="btn btn-ghost">Our story</Link>
           </motion.div>
+
+          <motion.ul
+            className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs uppercase tracking-[0.2em] text-ivory/80 lg:justify-start"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2, delay: T0 + 1.3 }}
+          >
+            {["100% soy wax", "Handmade with love", "Perfect for gifting"].map((t) => (
+              <li key={t} className="flex items-center gap-2">
+                <span className="text-marigold">✦</span>
+                {t}
+              </li>
+            ))}
+          </motion.ul>
         </motion.div>
 
-        <motion.div
-          style={{ y: candleY, perspective: 1200 }}
-          className="flex justify-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, delay: 0.2, ease }}
-        >
-          <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} className="w-full">
-            <HeroCollage mx={smx} my={smy} />
-          </motion.div>
+        <motion.div style={{ y: archesY }}>
+          <HeroArches mx={smx} my={smy} />
         </motion.div>
-      </div>
-
-      <div aria-hidden className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 sm:flex">
-        <span className="text-[0.6rem] uppercase tracking-[0.4em] text-background/40">Scroll</span>
-        <span className="h-10 w-px bg-gold/60" style={{ animation: "scroll-cue 2.4s ease-in-out infinite" }} />
       </div>
     </section>
   );

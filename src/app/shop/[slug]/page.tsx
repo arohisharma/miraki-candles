@@ -8,6 +8,8 @@ import Reveal from "@/components/Reveal";
 import Tilt from "@/components/Tilt";
 import { formatPrice, getProduct, products } from "@/data/products";
 
+const ARCH = "rounded-t-full rounded-b-[2.5rem]";
+
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
 }
@@ -27,21 +29,26 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
 
   return (
     <>
-      <div className="mx-auto max-w-6xl px-6 py-12">
-        <Link href="/shop" className="link-underline text-xs uppercase tracking-[0.25em] text-muted hover:text-foreground">
+      <div className="mx-auto max-w-7xl px-6 pb-20 pt-10">
+        <Link href="/shop" className="link-underline text-xs font-medium uppercase tracking-[0.22em] text-muted hover:text-ink">
           ← Back to shop
         </Link>
 
-        <div className="mt-10 grid gap-14 md:grid-cols-2 md:items-center">
-          <Reveal>
-            <Tilt max={6} rounded="rounded-3xl">
-              <div className="group relative aspect-[4/5] overflow-hidden rounded-3xl bg-espresso shadow-[0_40px_80px_-30px_rgba(43,33,24,0.7)]">
-                <ProductMedia
-                  product={product}
-                  variant="page"
-                  sizes="(min-width: 768px) 50vw, 100vw"
-                  priority
-                />
+        <div className="mt-10 grid gap-14 md:grid-cols-2 md:items-center lg:gap-24">
+          <Reveal className="relative">
+            <div
+              aria-hidden
+              className="absolute -inset-6 rounded-full opacity-70 blur-3xl"
+              style={{ backgroundColor: product.tint }}
+            />
+            <Tilt max={6} rounded={ARCH} className="relative mx-auto max-w-md">
+              <div className={`bg-ivory p-2 shadow-[0_50px_90px_-35px_rgba(51,34,28,0.55)] ${ARCH}`}>
+                <div
+                  className={`group relative aspect-[3/4] overflow-hidden ${ARCH}`}
+                  style={{ backgroundColor: product.tint }}
+                >
+                  <ProductMedia product={product} sizes="(min-width: 768px) 28rem, 100vw" priority />
+                </div>
               </div>
             </Tilt>
           </Reveal>
@@ -49,28 +56,32 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
           <div>
             <Reveal>
               <p className="eyebrow">{product.mood} · {product.size}</p>
-              <h1 className="mt-3 text-5xl sm:text-7xl">{product.name}</h1>
-              <p className="mt-3 font-serif text-2xl italic text-muted">{product.tagline}</p>
+              <h1 className="mt-3 text-6xl leading-[0.95] sm:text-7xl">{product.name}</h1>
+              <p className="mt-4 font-serif text-2xl italic text-clay">{product.tagline}</p>
               <p className="mt-6 text-3xl">{formatPrice(product.price)}</p>
             </Reveal>
 
             <Reveal delay={0.1}>
-              <p className="mt-6 max-w-md leading-relaxed text-muted">{product.description}</p>
-              <ul className="mt-6 flex flex-wrap gap-2">
+              <p className="mt-6 max-w-md text-lg leading-relaxed text-muted">{product.description}</p>
+              <ul className="mt-7 flex flex-wrap gap-2">
                 {product.notes.map((n) => (
-                  <li key={n} className="rounded-full bg-surface px-4 py-1.5 text-xs uppercase tracking-[0.2em] ring-1 ring-gold/40">
+                  <li
+                    key={n}
+                    className="rounded-full px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em]"
+                    style={{ backgroundColor: product.tint }}
+                  >
                     {n}
                   </li>
                 ))}
               </ul>
-              <dl className="mt-8 grid max-w-md grid-cols-2 gap-4 border-y border-border py-5 text-sm">
+              <dl className="mt-8 grid max-w-md grid-cols-2 gap-4 border-y border-line py-5">
                 <div>
                   <dt className="text-xs uppercase tracking-[0.2em] text-muted">Size</dt>
-                  <dd className="mt-1 font-serif text-xl">{product.size}</dd>
+                  <dd className="mt-1 font-serif text-2xl">{product.size}</dd>
                 </div>
                 <div>
                   <dt className="text-xs uppercase tracking-[0.2em] text-muted">Burn time</dt>
-                  <dd className="mt-1 font-serif text-xl">{product.burnTime}</dd>
+                  <dd className="mt-1 font-serif text-2xl">{product.burnTime}</dd>
                 </div>
               </dl>
               <AddToCartButton slug={product.slug} />
@@ -79,13 +90,13 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
         </div>
       </div>
 
-      <section className="mx-auto max-w-6xl px-6 pb-24 pt-10">
+      <section className="mx-auto max-w-7xl px-6 pb-24 pt-10">
         <Reveal>
-          <h2 className="text-center text-4xl sm:text-5xl">
-            You may also <span className="italic text-accent">love</span>
+          <h2 className="text-center text-5xl sm:text-6xl">
+            You may also <span className="italic text-clay">love</span>
           </h2>
         </Reveal>
-        <div className="mt-12 grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto mt-14 grid max-w-5xl gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
           {related.map((p, i) => (
             <Reveal key={p.slug} delay={i * 0.1}>
               <ProductCard product={p} />

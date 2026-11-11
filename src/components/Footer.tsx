@@ -1,40 +1,42 @@
 import Link from "next/link";
-import Embers from "./Embers";
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-espresso text-background/70">
-      <Embers count={8} />
-      <div className="relative mx-auto max-w-6xl px-6 py-16">
-        <div className="grid gap-12 md:grid-cols-[1.5fr_1fr_1fr]">
+    <footer className="mt-10 overflow-hidden rounded-t-[2.5rem] bg-cream sm:rounded-t-[4rem]">
+      <div className="mx-auto max-w-7xl px-6 pt-16 sm:pt-20">
+        <div className="grid gap-12 md:grid-cols-[1.6fr_1fr_1fr]">
           <div>
-            <p className="bg-gradient-to-b from-gold-light to-gold bg-clip-text font-serif text-5xl tracking-[0.25em] text-transparent">
-              MIRAKI
-            </p>
-            <p className="mt-4 max-w-xs font-serif text-lg italic text-background/60">
-              Hand-poured in small batches, to make every room feel like home.
+            <p className="max-w-sm font-serif text-3xl leading-snug sm:text-4xl">
+              Poured by hand, <span className="italic text-clay">to make every room feel like home.</span>
             </p>
           </div>
           <div>
             <p className="eyebrow">Explore</p>
-            <ul className="mt-5 space-y-3 text-sm">
-              <li><Link href="/shop" className="link-underline hover:text-background">Shop all</Link></li>
-              <li><Link href="/about" className="link-underline hover:text-background">Our story</Link></li>
-              <li><Link href="/cart" className="link-underline hover:text-background">Cart</Link></li>
+            <ul className="mt-5 space-y-3">
+              <li><Link href="/shop" className="link-underline">Shop all</Link></li>
+              <li><Link href="/about" className="link-underline">Our story</Link></li>
+              <li><Link href="/cart" className="link-underline">Cart</Link></li>
             </ul>
           </div>
           <div>
             <p className="eyebrow">Say hello</p>
-            <ul className="mt-5 space-y-3 text-sm">
-              <li><Link href="/contact" className="link-underline hover:text-background">Contact</Link></li>
-              <li className="text-background/50">Custom &amp; wholesale enquiries welcome</li>
+            <ul className="mt-5 space-y-3">
+              <li><Link href="/contact" className="link-underline">Contact</Link></li>
+              <li className="text-muted">Custom &amp; wholesale enquiries welcome</li>
             </ul>
           </div>
         </div>
-        <div className="mt-14 border-t border-gold/20 pt-6 text-xs tracking-wider text-background/40">
-          © 2026 Miraki Candles. All rights reserved.
+        <div className="mt-14 flex justify-between border-t border-ink/10 pt-6 text-xs tracking-wider text-muted">
+          <span>© 2026 Miraki Candles</span>
+          <span>Handmade with love</span>
         </div>
       </div>
+      <p
+        aria-hidden
+        className="bg-sunset -mb-[0.16em] select-none bg-clip-text text-center font-serif text-[25vw] italic leading-[0.9] text-transparent"
+      >
+        Miraki
+      </p>
     </footer>
   );
 }

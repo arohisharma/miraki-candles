@@ -83,7 +83,7 @@ export default function CandleVisual({
         fontSize="12"
         letterSpacing="3.5"
         fill="#2b2118"
-        style={{ fontFamily: "var(--font-cormorant), Georgia, serif" }}
+        style={{ fontFamily: "var(--font-display), Georgia, serif" }}
       >
         MIRAKI
       </text>
@@ -96,7 +96,7 @@ export default function CandleVisual({
           fontSize="6"
           letterSpacing="0.8"
           fill="#7a6a5c"
-          style={{ textTransform: "uppercase", fontFamily: "var(--font-jost), sans-serif" }}
+          style={{ textTransform: "uppercase", fontFamily: "var(--font-body), sans-serif" }}
         >
           {name}
         </text>

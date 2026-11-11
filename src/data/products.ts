@@ -11,6 +11,8 @@ export type Product = {
   notes: string[];
   mood: Mood;
   color: string; // tint for the illustrated candle shown until a photo is added
+  /** Soft pastel background used behind this product. */
+  tint: string;
   /** Path under /public, e.g. "/products/lotus-bloom.jpg". When set, the photo replaces the illustration. */
   image?: string;
   /** CSS object-position for cropping the photo, e.g. "50% 80%". */
@@ -33,6 +35,7 @@ export const products: Product[] = [
     notes: ["Lotus", "Rose", "Musk"],
     mood: "Serene",
     color: "#c2185b",
+    tint: "#f9d9e3",
     image: "/products/lotus-bloom.jpg",
     imagePosition: "50% 85%",
     featured: true,
@@ -49,6 +52,7 @@ export const products: Product[] = [
     notes: ["Marigold", "Sandalwood", "Vanilla"],
     mood: "Festive",
     color: "#e8751a",
+    tint: "#fbe5bb",
     image: "/products/diwali-gift-box.jpg",
     imagePosition: "50% 40%",
     featured: true,
@@ -65,6 +69,7 @@ export const products: Product[] = [
     notes: ["Rose", "Peony", "Vanilla"],
     mood: "Romantic",
     color: "#e0679a",
+    tint: "#fbe1d6",
     image: "/products/rose-petal-jar.jpg",
     imagePosition: "50% 80%",
     featured: true,
@@ -81,6 +86,7 @@ export const products: Product[] = [
     notes: ["Sea breeze", "Daisy", "White musk"],
     mood: "Fresh",
     color: "#3b8fd1",
+    tint: "#d6e8f4",
     image: "/products/ocean-daisy-jar.jpg",
     imagePosition: "50% 30%",
   },

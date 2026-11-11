@@ -33,7 +33,7 @@ export default function AddToCartButton({ slug }: { slug: string }) {
       <p className="mt-3 h-5 text-sm text-muted" aria-live="polite">
         {added && (
           <>
-            <Link href="/cart" className="link-underline text-foreground">
+            <Link href="/cart" className="link-underline text-ink">
               View your cart →
             </Link>
           </>
