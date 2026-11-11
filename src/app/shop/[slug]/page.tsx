@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AddToCartButton from "@/components/AddToCartButton";
 import { formatPrice, getProduct, products } from "@/data/products";
 
 export function generateStaticParams() {
@@ -39,12 +40,7 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
             <div className="flex gap-4"><dt className="w-24 text-muted">Burn time</dt><dd>{product.burnTime}</dd></div>
             <div className="flex gap-4"><dt className="w-24 text-muted">Notes</dt><dd>{product.notes.join(" · ")}</dd></div>
           </dl>
-          <button
-            type="button"
-            className="mt-10 bg-accent px-8 py-3 text-sm uppercase tracking-widest text-white transition-colors hover:bg-accent-dark"
-          >
-            Add to cart
-          </button>
+          <AddToCartButton slug={product.slug} />
         </div>
       </div>
     </div>

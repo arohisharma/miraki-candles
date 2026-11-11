@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CartLink from "./CartLink";
 
 const links = [
   { href: "/shop", label: "Shop" },
@@ -19,6 +20,7 @@ export default function Header() {
               {l.label}
             </Link>
           ))}
+          <CartLink />
         </nav>
       </div>
     </header>
