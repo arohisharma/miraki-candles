@@ -31,7 +31,7 @@ export default function CheckoutButton({ items }: { items: CartItem[] }) {
         type="button"
         onClick={checkout}
         disabled={loading}
-        className="mt-6 w-full bg-accent px-8 py-3 text-sm uppercase tracking-widest text-white transition-colors hover:bg-accent-dark disabled:opacity-50"
+        className="btn mt-6 w-full"
       >
         {loading ? "Redirecting…" : "Checkout"}
       </button>

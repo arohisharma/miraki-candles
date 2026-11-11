@@ -1,3 +1,5 @@
+export type Mood = "Cosy" | "Grounded" | "Fresh" | "Romantic";
+
 export type Product = {
   slug: string;
   name: string;
@@ -7,6 +9,7 @@ export type Product = {
   size: string;
   burnTime: string;
   notes: string[];
+  mood: Mood;
   color: string; // placeholder swatch until real photos are added
   featured?: boolean;
 };
@@ -23,6 +26,7 @@ export const products: Product[] = [
     size: "8 oz",
     burnTime: "45 hours",
     notes: ["Amber", "Vanilla", "Sandalwood"],
+    mood: "Cosy",
     color: "#c98b5e",
     featured: true,
   },
@@ -35,6 +39,7 @@ export const products: Product[] = [
     size: "8 oz",
     burnTime: "45 hours",
     notes: ["Fig leaf", "Cedarwood", "Musk"],
+    mood: "Grounded",
     color: "#8a9a73",
     featured: true,
   },
@@ -47,6 +52,7 @@ export const products: Product[] = [
     size: "8 oz",
     burnTime: "45 hours",
     notes: ["Sea salt", "Jasmine", "White tea"],
+    mood: "Fresh",
     color: "#9fb4bd",
     featured: true,
   },
@@ -59,6 +65,7 @@ export const products: Product[] = [
     size: "10 oz",
     burnTime: "55 hours",
     notes: ["Rose", "Oud", "Patchouli"],
+    mood: "Romantic",
     color: "#a8576a",
   },
 ];

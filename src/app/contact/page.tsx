@@ -1,44 +1,40 @@
 import type { Metadata } from "next";
+import PageHero from "@/components/PageHero";
+import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = { title: "Contact" };
 
+const field =
+  "mt-1 w-full border-0 border-b border-border bg-transparent px-0 py-2 text-lg outline-none transition-colors duration-500 focus:border-gold";
+
 export default function ContactPage() {
   return (
-    <div className="mx-auto max-w-xl px-6 py-16">
-      <h1 className="text-5xl">Contact</h1>
-      <p className="mt-3 text-muted">Questions, custom orders or wholesale? Say hello.</p>
-      {/* Form is not wired up yet — needs a server action or email service. */}
-      <form className="mt-10 space-y-5">
-        {[
-          { id: "name", label: "Name", type: "text" },
-          { id: "email", label: "Email", type: "email" },
-        ].map((f) => (
-          <div key={f.id}>
-            <label htmlFor={f.id} className="text-sm text-muted">{f.label}</label>
-            <input
-              id={f.id}
-              name={f.id}
-              type={f.type}
-              className="mt-1 w-full border border-border bg-transparent px-3 py-2 outline-none focus:border-accent"
-            />
-          </div>
-        ))}
-        <div>
-          <label htmlFor="message" className="text-sm text-muted">Message</label>
-          <textarea
-            id="message"
-            name="message"
-            rows={5}
-            className="mt-1 w-full border border-border bg-transparent px-3 py-2 outline-none focus:border-accent"
-          />
-        </div>
-        <button
-          type="submit"
-          className="bg-accent px-8 py-3 text-sm uppercase tracking-widest text-white transition-colors hover:bg-accent-dark"
-        >
-          Send
-        </button>
-      </form>
-    </div>
+    <>
+      <PageHero
+        eyebrow="Get in touch"
+        title="Say hello"
+        subtitle="Questions, custom orders or wholesale? We'd love to hear from you."
+      />
+      <div className="mx-auto max-w-xl px-6 py-20">
+        {/* Form is not wired up yet — needs a server action or email service. */}
+        <Reveal>
+          <form className="space-y-8">
+            <div>
+              <label htmlFor="name" className="text-xs uppercase tracking-[0.25em] text-muted">Name</label>
+              <input id="name" name="name" type="text" className={field} />
+            </div>
+            <div>
+              <label htmlFor="email" className="text-xs uppercase tracking-[0.25em] text-muted">Email</label>
+              <input id="email" name="email" type="email" className={field} />
+            </div>
+            <div>
+              <label htmlFor="message" className="text-xs uppercase tracking-[0.25em] text-muted">Message</label>
+              <textarea id="message" name="message" rows={5} className={field} />
+            </div>
+            <button type="submit" className="btn">Send message</button>
+          </form>
+        </Reveal>
+      </div>
+    </>
   );
 }

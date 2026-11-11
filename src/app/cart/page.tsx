@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import CandleVisual from "@/components/CandleVisual";
 import CheckoutButton from "@/components/CheckoutButton";
 import { formatPrice, getProduct } from "@/data/products";
 import { removeFromCart, setQuantity, useCart } from "@/lib/cart-store";
@@ -17,11 +18,11 @@ export default function CartPage() {
   if (lines.length === 0) {
     return (
       <div className="mx-auto max-w-2xl px-6 py-24 text-center">
-        <h1 className="text-5xl">Your cart is empty</h1>
+        <h1 className="text-5xl sm:text-6xl">Your cart is <span className="italic text-accent">empty</span></h1>
         <p className="mt-4 text-muted">Find a scent you love.</p>
         <Link
           href="/shop"
-          className="mt-8 inline-block bg-accent px-8 py-3 text-sm uppercase tracking-widest text-white transition-colors hover:bg-accent-dark"
+          className="btn mt-8"
         >
           Continue shopping
         </Link>
@@ -38,10 +39,11 @@ export default function CartPage() {
           <li key={product.slug} className="flex gap-5 py-6">
             <Link
               href={`/shop/${product.slug}`}
-              className="h-24 w-24 shrink-0 rounded-sm"
-              style={{ backgroundColor: product.color }}
+              className="grid h-28 w-24 shrink-0 place-items-center overflow-hidden rounded-xl bg-espresso"
               aria-label={product.name}
-            />
+            >
+              <CandleVisual color={product.color} className="w-14" />
+            </Link>
             <div className="flex flex-1 flex-col justify-between sm:flex-row">
               <div>
                 <Link href={`/shop/${product.slug}`} className="font-serif text-xl">

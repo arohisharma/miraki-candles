@@ -9,14 +9,17 @@ const links = [
 
 export default function Header() {
   return (
-    <header className="border-b border-border">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-        <Link href="/" className="font-serif text-2xl tracking-wide">
-          Miraki
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/75 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 sm:py-5">
+        <Link href="/" className="group flex flex-col leading-none">
+          <span className="font-serif text-xl tracking-[0.2em] sm:text-2xl sm:tracking-[0.28em] transition-[letter-spacing] duration-700 group-hover:tracking-[0.36em]">
+            MIRAKI
+          </span>
+          <span className="mt-1 text-[0.6rem] uppercase tracking-[0.5em] text-gold">Candles</span>
         </Link>
-        <nav className="flex gap-8 text-sm uppercase tracking-widest text-muted">
+        <nav className="flex items-center gap-3 whitespace-nowrap text-[0.62rem] uppercase tracking-[0.12em] text-muted sm:gap-9 sm:text-xs sm:tracking-[0.2em]">
           {links.map((l) => (
-            <Link key={l.href} href={l.href} className="transition-colors hover:text-foreground">
+            <Link key={l.href} href={l.href} className="link-underline transition-colors hover:text-foreground">
               {l.label}
             </Link>
           ))}
