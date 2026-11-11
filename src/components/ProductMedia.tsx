@@ -35,6 +35,7 @@ export default function ProductMedia({
           fill
           sizes={sizes ?? "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"}
           priority={priority}
+          style={{ objectPosition: product.imagePosition }}
           className="object-cover transition-transform duration-[1400ms] [transition-timing-function:var(--ease-pour)] group-hover:scale-105"
         />
         {variant !== "thumb" && (

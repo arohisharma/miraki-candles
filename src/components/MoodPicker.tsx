@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { formatPrice, products } from "@/data/products";
-import CandleVisual from "./CandleVisual";
+import ProductMedia from "./ProductMedia";
 import Embers from "./Embers";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -77,11 +77,9 @@ export default function MoodPicker() {
                 exit={{ opacity: 0, rotateY: 50, y: -12 }}
                 transition={{ duration: 0.7, ease }}
               >
-                <CandleVisual
-                  color={product.color}
-                  name={product.name}
-                  className="candle-float w-56 sm:w-72"
-                />
+                <div className="group relative aspect-[4/5] w-64 overflow-hidden rounded-3xl bg-espresso shadow-[0_40px_80px_-30px_rgba(0,0,0,0.8)] ring-1 ring-gold/20 sm:w-80">
+                  <ProductMedia product={product} variant="page" sizes="320px" />
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>

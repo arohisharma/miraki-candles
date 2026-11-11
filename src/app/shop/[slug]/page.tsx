@@ -35,7 +35,7 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
         <div className="mt-10 grid gap-14 md:grid-cols-2 md:items-center">
           <Reveal>
             <Tilt max={6} rounded="rounded-3xl">
-              <div className="group relative aspect-square overflow-hidden rounded-3xl bg-espresso shadow-[0_40px_80px_-30px_rgba(43,33,24,0.7)]">
+              <div className="group relative aspect-[4/5] overflow-hidden rounded-3xl bg-espresso shadow-[0_40px_80px_-30px_rgba(43,33,24,0.7)]">
                 <ProductMedia
                   product={product}
                   variant="page"

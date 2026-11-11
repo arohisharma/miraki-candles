@@ -1,4 +1,4 @@
-export type Mood = "Cosy" | "Grounded" | "Fresh" | "Romantic";
+export type Mood = "Serene" | "Festive" | "Romantic" | "Fresh";
 
 export type Product = {
   slug: string;
@@ -11,64 +11,78 @@ export type Product = {
   notes: string[];
   mood: Mood;
   color: string; // tint for the illustrated candle shown until a photo is added
-  /** Path under /public, e.g. "/products/amber-dusk.jpg". When set, the photo replaces the illustration. */
+  /** Path under /public, e.g. "/products/lotus-bloom.jpg". When set, the photo replaces the illustration. */
   image?: string;
+  /** CSS object-position for cropping the photo, e.g. "50% 80%". */
+  imagePosition?: string;
   featured?: boolean;
 };
 
-// Placeholder catalogue — replace with the client's real products.
+// NOTE: names, prices, sizes, burn times and scent notes below are PLACEHOLDERS written
+// from the photos. Replace them with the client's real product details.
 export const products: Product[] = [
   {
-    slug: "amber-dusk",
-    name: "Amber Dusk",
-    tagline: "Warm amber, vanilla and sandalwood",
+    slug: "lotus-bloom",
+    name: "Lotus Bloom",
+    tagline: "A hand-sculpted lotus in a keepsake box",
     description:
-      "A cosy evening candle with deep amber and soft vanilla, grounded by creamy sandalwood.",
-    price: 28,
-    size: "8 oz",
-    burnTime: "45 hours",
-    notes: ["Amber", "Vanilla", "Sandalwood"],
-    mood: "Cosy",
-    color: "#c98b5e",
+      "A softly sculpted lotus candle, nestled in shredded paper in its own gift box. Beautiful lit, and just as lovely left as décor.",
+    price: 18,
+    size: "3 in",
+    burnTime: "12 hours",
+    notes: ["Lotus", "Rose", "Musk"],
+    mood: "Serene",
+    color: "#c2185b",
+    image: "/products/lotus-bloom.jpg",
+    imagePosition: "50% 85%",
     featured: true,
   },
   {
-    slug: "fig-and-cedar",
-    name: "Fig & Cedar",
-    tagline: "Green fig leaf and smoky cedarwood",
-    description: "Fresh, earthy and slightly sweet — like walking through an orchard at dusk.",
-    price: 30,
-    size: "8 oz",
-    burnTime: "45 hours",
-    notes: ["Fig leaf", "Cedarwood", "Musk"],
-    mood: "Grounded",
-    color: "#8a9a73",
+    slug: "diwali-gift-box",
+    name: "Diwali Gift Box",
+    tagline: "Flower and diya candles, ready to gift",
+    description:
+      "A festive hamper of hand-poured flower candles, diyas and tea lights, finished with a greeting card. Made for sharing light with the people you love.",
+    price: 42,
+    size: "Gift box",
+    burnTime: "Assorted",
+    notes: ["Marigold", "Sandalwood", "Vanilla"],
+    mood: "Festive",
+    color: "#e8751a",
+    image: "/products/diwali-gift-box.jpg",
+    imagePosition: "50% 40%",
     featured: true,
   },
   {
-    slug: "sea-salt-jasmine",
-    name: "Sea Salt & Jasmine",
-    tagline: "Coastal air with night-blooming jasmine",
-    description: "Bright, airy and floral, with a clean mineral edge.",
+    slug: "rose-petal-jar",
+    name: "Rose Petal Jar",
+    tagline: "Blush-pink layers with real petal inlays",
+    description:
+      "A glass jar candle poured in soft layers of blush and cream, scattered with rose petal accents.",
     price: 26,
     size: "8 oz",
-    burnTime: "45 hours",
-    notes: ["Sea salt", "Jasmine", "White tea"],
-    mood: "Fresh",
-    color: "#9fb4bd",
+    burnTime: "40 hours",
+    notes: ["Rose", "Peony", "Vanilla"],
+    mood: "Romantic",
+    color: "#e0679a",
+    image: "/products/rose-petal-jar.jpg",
+    imagePosition: "50% 80%",
     featured: true,
   },
   {
-    slug: "rose-and-oud",
-    name: "Rose & Oud",
-    tagline: "Velvet rose over smoky oud",
-    description: "Rich and romantic, a luxurious scent for slow evenings.",
-    price: 34,
-    size: "10 oz",
-    burnTime: "55 hours",
-    notes: ["Rose", "Oud", "Patchouli"],
-    mood: "Romantic",
-    color: "#a8576a",
+    slug: "ocean-daisy-jar",
+    name: "Ocean Daisy Jar",
+    tagline: "Sparkling blue wax with a hand-set daisy",
+    description:
+      "Shimmering ocean-blue layers topped with a sculpted daisy. Bright, breezy and made to catch the light.",
+    price: 28,
+    size: "8 oz",
+    burnTime: "40 hours",
+    notes: ["Sea breeze", "Daisy", "White musk"],
+    mood: "Fresh",
+    color: "#3b8fd1",
+    image: "/products/ocean-daisy-jar.jpg",
+    imagePosition: "50% 30%",
   },
 ];
 

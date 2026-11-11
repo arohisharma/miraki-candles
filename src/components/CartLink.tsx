@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
+import { getProduct } from "@/data/products";
 import { useCart } from "@/lib/cart-store";
 
 export default function CartLink() {
-  const count = useCart().reduce((n, i) => n + i.quantity, 0);
+  const count = useCart().reduce((n, i) => n + (getProduct(i.slug) ? i.quantity : 0), 0);
 
   return (
     <Link href="/cart" className="link-underline transition-colors hover:text-foreground">

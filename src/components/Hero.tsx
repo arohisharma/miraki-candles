@@ -117,7 +117,6 @@ export default function Hero() {
           <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}>
             <CandleVisual
               color="#c98b5e"
-              name="Amber Dusk"
               className="candle-float w-56 drop-shadow-[0_30px_60px_rgba(0,0,0,0.5)] sm:w-72 lg:w-[23rem]"
             />
           </motion.div>
