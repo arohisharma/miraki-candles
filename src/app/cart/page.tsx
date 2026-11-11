@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import CandleVisual from "@/components/CandleVisual";
+import ProductMedia from "@/components/ProductMedia";
 import CheckoutButton from "@/components/CheckoutButton";
 import { formatPrice, getProduct } from "@/data/products";
 import { removeFromCart, setQuantity, useCart } from "@/lib/cart-store";
@@ -39,10 +39,10 @@ export default function CartPage() {
           <li key={product.slug} className="flex gap-5 py-6">
             <Link
               href={`/shop/${product.slug}`}
-              className="grid h-28 w-24 shrink-0 place-items-center overflow-hidden rounded-xl bg-espresso"
+              className="group relative block h-28 w-24 shrink-0 overflow-hidden rounded-xl bg-espresso"
               aria-label={product.name}
             >
-              <CandleVisual color={product.color} className="w-14" />
+              <ProductMedia product={product} variant="thumb" sizes="96px" />
             </Link>
             <div className="flex flex-1 flex-col justify-between sm:flex-row">
               <div>

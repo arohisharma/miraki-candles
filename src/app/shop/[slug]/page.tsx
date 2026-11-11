@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AddToCartButton from "@/components/AddToCartButton";
-import CandleVisual from "@/components/CandleVisual";
-import Embers from "@/components/Embers";
 import ProductCard from "@/components/ProductCard";
+import ProductMedia from "@/components/ProductMedia";
 import Reveal from "@/components/Reveal";
 import Tilt from "@/components/Tilt";
 import { formatPrice, getProduct, products } from "@/data/products";
@@ -36,13 +35,12 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
         <div className="mt-10 grid gap-14 md:grid-cols-2 md:items-center">
           <Reveal>
             <Tilt max={6} rounded="rounded-3xl">
-              <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-3xl bg-espresso shadow-[0_40px_80px_-30px_rgba(43,33,24,0.7)]">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(201,166,107,0.35),transparent_62%)]" />
-                <Embers count={14} />
-                <CandleVisual
-                  color={product.color}
-                  name={product.name}
-                  className="candle-float relative w-[55%]"
+              <div className="group relative aspect-square overflow-hidden rounded-3xl bg-espresso shadow-[0_40px_80px_-30px_rgba(43,33,24,0.7)]">
+                <ProductMedia
+                  product={product}
+                  variant="page"
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  priority
                 />
               </div>
             </Tilt>

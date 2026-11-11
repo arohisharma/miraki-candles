@@ -10,7 +10,9 @@ export type Product = {
   burnTime: string;
   notes: string[];
   mood: Mood;
-  color: string; // placeholder swatch until real photos are added
+  color: string; // tint for the illustrated candle shown until a photo is added
+  /** Path under /public, e.g. "/products/amber-dusk.jpg". When set, the photo replaces the illustration. */
+  image?: string;
   featured?: boolean;
 };
 
