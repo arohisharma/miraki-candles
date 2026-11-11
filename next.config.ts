@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
@@ -11,6 +10,10 @@ const nextConfig: NextConfig = {
         as: "*.css",
       },
     },
+  },
+  images: {
+    // Sample stock photos are loaded from Unsplash (see USE_SAMPLE_PHOTOS in src/data/products.ts).
+    remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
   },
 };
 

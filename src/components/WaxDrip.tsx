@@ -1,43 +1,28 @@
-"use client";
+import { useId } from "react";
 
-import { useId, useRef } from "react";
-import { motion, useInView } from "motion/react";
-
-type Drip = {
-  x: number;
-  len: number;
-  w: number;
-  /** Seconds per creep cycle. Omit for a drip that has already set solid. */
-  period?: number;
-  phase?: number;
-  /** Lets a droplet fall at the end of each cycle. */
-  drop?: boolean;
-};
-
-// Real candle wax mostly sets where it lands; only a few runs are still creeping.
-const DRIPS: Drip[] = [
-  { x: 64, len: 72, w: 11, period: 17, phase: 0.1 },
+// Set candle wax: a still shape, so it costs nothing to draw after the first paint.
+const DRIPS = [
+  { x: 64, len: 72, w: 11 },
   { x: 176, len: 30, w: 8 },
-  { x: 300, len: 122, w: 13, period: 20, phase: 0.5, drop: true },
+  { x: 300, len: 122, w: 13 },
   { x: 418, len: 50, w: 9 },
-  { x: 548, len: 90, w: 12, period: 16, phase: 0.8 },
+  { x: 548, len: 90, w: 12 },
   { x: 688, len: 38, w: 10 },
-  { x: 806, len: 134, w: 14, period: 22, phase: 0.25, drop: true },
-  { x: 936, len: 58, w: 9, period: 15, phase: 0.6 },
+  { x: 806, len: 134, w: 14 },
+  { x: 936, len: 58, w: 9 },
   { x: 1052, len: 26, w: 8 },
-  { x: 1164, len: 104, w: 12, period: 18, phase: 0.05, drop: true },
+  { x: 1164, len: 104, w: 12 },
   { x: 1288, len: 46, w: 10 },
-  { x: 1392, len: 80, w: 11, period: 19, phase: 0.4 },
+  { x: 1392, len: 80, w: 11 },
 ];
 
 const TOP = 24;
 const HEIGHT = 230;
 
-const WAVE_A = "M-40 -60H1480V22C1300 38 1180 12 1000 28C820 42 640 10 430 26C260 38 120 14 -40 30Z";
-const WAVE_B = "M-40 -60H1480V28C1300 14 1180 38 1000 20C820 8 640 40 430 22C260 10 120 36 -40 24Z";
+const WAVE = "M-40 -60H1480V22C1300 38 1180 12 1000 28C820 42 640 10 430 26C260 38 120 14 -40 30Z";
 
 /**
- * Ivory candle wax melting down over a coloured section. Place it absolutely at the
+ * Ivory candle wax that has melted down over a coloured section (static, not animated). Place it absolutely at the
  * top of the section, directly beneath an ivory area, so the wax appears to flow out of it.
  *
  * The filter fuses the shapes into one liquid body, then adds a warm shadow on the lower
@@ -45,16 +30,12 @@ const WAVE_B = "M-40 -60H1480V28C1300 14 1180 38 1000 20C820 8 640 40 430 22C260
  */
 export default function WaxDrip({ className = "" }: { className?: string }) {
   const uid = useId().replace(/:/g, "");
-  const ref = useRef<SVGSVGElement>(null);
-  const inView = useInView(ref, { margin: "120px" });
 
   return (
     <svg
-      ref={ref}
-      data-wax-paused={!inView}
       viewBox={`0 0 1440 ${HEIGHT}`}
       preserveAspectRatio="xMidYMin slice"
-      className={`pointer-events-none block aspect-[1440/230] min-h-32 w-full ${className}`}
+      className={`pointer-events-none block transform-gpu aspect-[1440/230] min-h-32 w-full ${className}`}
       aria-hidden
     >
       <defs>
@@ -109,36 +90,13 @@ export default function WaxDrip({ className = "" }: { className?: string }) {
       </defs>
 
       <g filter={`url(#wax-${uid})`} fill={`url(#fill-${uid})`}>
-        <motion.path
-          d={WAVE_A}
-          animate={{ d: [WAVE_A, WAVE_B, WAVE_A] }}
-          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-        />
-        {DRIPS.map((d) => {
-          const tip = TOP + d.len;
-          const moving = d.period !== undefined;
-          const style = moving
-            ? ({
-                "--len": `${d.len}px`,
-                "--fall": `${HEIGHT - tip + 30}px`,
-                "--p": `${d.period}s`,
-                "--d": `${-(d.phase ?? 0) * (d.period ?? 1)}s`,
-              } as React.CSSProperties)
-            : undefined;
-          return (
-            <g key={d.x} style={style}>
-              <rect
-                className={moving ? "wax-stem" : undefined}
-                x={d.x - d.w}
-                y={TOP}
-                width={d.w * 2}
-                height={d.len}
-              />
-              <circle className={moving ? "wax-bead" : undefined} cx={d.x} cy={tip} r={d.w * 1.3} />
-              {d.drop && <circle className="wax-drop" cx={d.x} cy={tip} r={d.w * 0.8} />}
-            </g>
-          );
-        })}
+        <path d={WAVE} />
+        {DRIPS.map((d) => (
+          <g key={d.x}>
+            <rect x={d.x - d.w} y={TOP} width={d.w * 2} height={d.len} />
+            <circle cx={d.x} cy={TOP + d.len} r={d.w * 1.3} />
+          </g>
+        ))}
       </g>
     </svg>
   );

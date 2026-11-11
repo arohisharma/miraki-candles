@@ -17,12 +17,23 @@ export type Product = {
   image?: string;
   /** CSS object-position for cropping the photo, e.g. "50% 80%". */
   imagePosition?: string;
+  /** Stock photo used instead of `image` while USE_SAMPLE_PHOTOS is on. */
+  sampleImage?: string;
   featured?: boolean;
 };
 
 // NOTE: names, prices, sizes, burn times and scent notes below are PLACEHOLDERS written
 // from the photos. Replace them with the client's real product details.
-export const products: Product[] = [
+/**
+ * While true, the site shows free stock photos (from Unsplash) instead of the real
+ * product photos, so the design can be judged on its own. Set to false to switch back.
+ */
+export const USE_SAMPLE_PHOTOS = true;
+
+const unsplash = (id: string) =>
+  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1400&q=80`;
+
+const catalogue: Product[] = [
   {
     slug: "lotus-bloom",
     name: "Lotus Bloom",
@@ -37,6 +48,7 @@ export const products: Product[] = [
     color: "#c2185b",
     tint: "#f9d9e3",
     image: "/products/lotus-bloom.jpg",
+    sampleImage: unsplash("photo-1707839568483-9f1924d5f5de"),
     imagePosition: "50% 85%",
     featured: true,
   },
@@ -54,6 +66,7 @@ export const products: Product[] = [
     color: "#e8751a",
     tint: "#fbe5bb",
     image: "/products/diwali-gift-box.jpg",
+    sampleImage: unsplash("photo-1707839568443-912e7206c726"),
     imagePosition: "50% 40%",
     featured: true,
   },
@@ -71,6 +84,7 @@ export const products: Product[] = [
     color: "#e0679a",
     tint: "#fbe1d6",
     image: "/products/rose-petal-jar.jpg",
+    sampleImage: unsplash("photo-1745125996226-879b0cb74e8f"),
     imagePosition: "50% 80%",
     featured: true,
   },
@@ -88,9 +102,14 @@ export const products: Product[] = [
     color: "#3b8fd1",
     tint: "#d6e8f4",
     image: "/products/ocean-daisy-jar.jpg",
+    sampleImage: unsplash("photo-1707839568938-f9b50bb88454"),
     imagePosition: "50% 30%",
   },
 ];
+
+export const products: Product[] = USE_SAMPLE_PHOTOS
+  ? catalogue.map((p) => (p.sampleImage ? { ...p, image: p.sampleImage, imagePosition: undefined } : p))
+  : catalogue;
 
 export function getProduct(slug: string) {
   return products.find((p) => p.slug === slug);
