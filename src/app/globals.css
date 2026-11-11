@@ -234,3 +234,48 @@ h1, h2, h3 {
   0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
   50% { transform: translate(var(--bx, 20px), var(--by, -30px)) scale(1.15); opacity: 0.6; }
 }
+
+/* ---------- Molten wax drips ---------- */
+.wax-stem,
+.wax-bead,
+.wax-drop,
+.wax-hl {
+  transform-box: fill-box;
+  animation-duration: var(--p, 10s);
+  animation-delay: var(--d, 0s);
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.5, 0, 0.3, 1);
+}
+.wax-stem { transform-origin: 50% 0%; animation-name: wax-stem; }
+.wax-bead { transform-origin: 50% 50%; animation-name: wax-bead; }
+.wax-drop { transform-origin: 50% 50%; animation-name: wax-drop; opacity: 0; animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.55); }
+.wax-hl-stem { transform-origin: 50% 0%; animation-name: wax-stem; }
+.wax-hl-bead { transform-origin: 50% 50%; animation-name: wax-bead; }
+.wax-hl-drop { transform-origin: 50% 50%; animation-name: wax-drop; opacity: 0; animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.55); }
+
+[data-wax-paused="true"] * { animation-play-state: paused !important; }
+
+/* The stem slowly stretches under its own weight, holds, then recoils once a droplet lets go. */
+@keyframes wax-stem {
+  0% { transform: scaleY(0.62); }
+  64% { transform: scaleY(1); }
+  67% { transform: scaleY(1); }
+  76% { transform: scaleY(0.66); }
+  100% { transform: scaleY(0.62); }
+}
+/* The bead rides the tip, swelling as it fills, then shrinks back after separating. */
+@keyframes wax-bead {
+  0% { transform: translateY(calc(var(--len) * -0.38)) scale(0.9); }
+  52% { transform: translateY(calc(var(--len) * -0.06)) scale(1); }
+  64% { transform: translateY(0) scale(1.22); }
+  67% { transform: translateY(0) scale(1.34); }
+  76% { transform: translateY(calc(var(--len) * -0.34)) scale(0.95); }
+  100% { transform: translateY(calc(var(--len) * -0.38)) scale(0.9); }
+}
+/* The droplet detaches from the tip and falls, speeding up as it goes. */
+@keyframes wax-drop {
+  0%, 66% { opacity: 0; transform: translateY(0) scale(0.4, 0.5); }
+  67% { opacity: 1; transform: translateY(0) scale(0.95, 1.05); }
+  88% { opacity: 1; transform: translateY(var(--fall)) scale(0.8, 1.35); }
+  92%, 100% { opacity: 0; transform: translateY(var(--fall)) scale(0.6, 1.4); }
+}
