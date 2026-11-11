@@ -36,7 +36,7 @@ export default function CheckoutButton({ items }: { items: CartItem[] }) {
         {loading ? "Redirecting…" : "Checkout"}
       </button>
       {error && (
-        <p role="alert" className="mt-3 text-sm text-red-700">
+        <p role="alert" className="mt-3 text-sm text-accent">
           {error}
         </p>
       )}

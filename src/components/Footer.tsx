@@ -2,39 +2,36 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="mt-10 overflow-hidden rounded-t-[2.5rem] bg-cream sm:rounded-t-[4rem]">
-      <div className="mx-auto max-w-7xl px-6 pt-16 sm:pt-20">
-        <div className="grid gap-12 md:grid-cols-[1.6fr_1fr_1fr]">
-          <div>
-            <p className="max-w-sm font-serif text-3xl leading-snug sm:text-4xl">
-              Poured by hand, <span className="italic text-clay">to make every room feel like home.</span>
-            </p>
-          </div>
-          <div>
-            <p className="eyebrow">Explore</p>
+    <footer className="overflow-hidden border-t border-line">
+      <div className="mx-auto max-w-[90rem] px-5 pt-16 sm:px-10 sm:pt-24">
+        <div className="grid gap-12 md:grid-cols-12">
+          <p className="font-serif text-3xl leading-tight md:col-span-6 sm:text-4xl">
+            Poured by hand,
+            <br />
+            for the quiet <em className="text-accent">moments</em>.
+          </p>
+          <div className="md:col-span-3">
+            <p className="label">Explore</p>
             <ul className="mt-5 space-y-3">
-              <li><Link href="/shop" className="link-underline">Shop all</Link></li>
-              <li><Link href="/about" className="link-underline">Our story</Link></li>
-              <li><Link href="/cart" className="link-underline">Cart</Link></li>
+              <li><Link href="/shop" className="link link-quiet">Shop all</Link></li>
+              <li><Link href="/about" className="link link-quiet">Our story</Link></li>
+              <li><Link href="/cart" className="link link-quiet">Cart</Link></li>
             </ul>
           </div>
-          <div>
-            <p className="eyebrow">Say hello</p>
+          <div className="md:col-span-3">
+            <p className="label">Say hello</p>
             <ul className="mt-5 space-y-3">
-              <li><Link href="/contact" className="link-underline">Contact</Link></li>
+              <li><Link href="/contact" className="link link-quiet">Contact</Link></li>
               <li className="text-muted">Custom &amp; wholesale enquiries welcome</li>
             </ul>
           </div>
         </div>
-        <div className="mt-14 flex justify-between border-t border-ink/10 pt-6 text-xs tracking-wider text-muted">
+        <div className="mt-16 flex justify-between border-t border-line pt-6 text-xs text-muted">
           <span>© 2026 Miraki Candles</span>
           <span>Handmade with love</span>
         </div>
       </div>
-      <p
-        aria-hidden
-        className="bg-sunset -mb-[0.16em] select-none bg-clip-text text-center font-serif text-[25vw] italic leading-[0.9] text-transparent"
-      >
+      <p aria-hidden className="-mb-[0.2em] select-none text-center font-serif text-[27vw] leading-[0.85] tracking-[-0.04em]">
         Miraki
       </p>
     </footer>

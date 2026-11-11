@@ -1,3 +1,5 @@
+import { unsplash } from "@/lib/unsplash";
+
 export type Mood = "Serene" | "Festive" | "Romantic" | "Fresh";
 
 export type Product = {
@@ -29,9 +31,6 @@ export type Product = {
  * product photos, so the design can be judged on its own. Set to false to switch back.
  */
 export const USE_SAMPLE_PHOTOS = true;
-
-const unsplash = (id: string) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1400&q=80`;
 
 const catalogue: Product[] = [
   {

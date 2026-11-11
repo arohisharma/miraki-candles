@@ -5,10 +5,7 @@ import AddToCartButton from "@/components/AddToCartButton";
 import ProductCard from "@/components/ProductCard";
 import ProductMedia from "@/components/ProductMedia";
 import Reveal from "@/components/Reveal";
-import Tilt from "@/components/Tilt";
 import { formatPrice, getProduct, products } from "@/data/products";
-
-const ARCH = "rounded-t-full rounded-b-[2.5rem]";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -26,79 +23,60 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
   if (!product) notFound();
 
   const related = products.filter((p) => p.slug !== product.slug).slice(0, 3);
+  const details = [
+    ["Size", product.size],
+    ["Burn time", product.burnTime],
+    ["Scent", product.notes.join(", ")],
+    ["Mood", product.mood],
+  ];
 
   return (
     <>
-      <div className="mx-auto max-w-7xl px-6 pb-20 pt-10">
-        <Link href="/shop" className="link-underline text-xs font-medium uppercase tracking-[0.22em] text-muted hover:text-ink">
-          ← Back to shop
-        </Link>
+      <div className="mx-auto max-w-[90rem] px-5 pb-24 pt-8 sm:px-10">
+        <Link href="/shop" className="link link-quiet label">← Shop</Link>
 
-        <div className="mt-10 grid gap-14 md:grid-cols-2 md:items-center lg:gap-24">
-          <Reveal className="relative">
-            <div
-              aria-hidden
-              className="absolute -inset-6 rounded-full opacity-70 blur-3xl"
-              style={{ backgroundColor: product.tint }}
-            />
-            <Tilt max={6} rounded={ARCH} className="relative mx-auto max-w-md">
-              <div className={`bg-ivory p-2 shadow-[0_50px_90px_-35px_rgba(51,34,28,0.55)] ${ARCH}`}>
-                <div
-                  className={`group relative aspect-[3/4] overflow-hidden ${ARCH}`}
-                  style={{ backgroundColor: product.tint }}
-                >
-                  <ProductMedia product={product} sizes="(min-width: 768px) 28rem, 100vw" priority />
-                </div>
-              </div>
-            </Tilt>
+        <div className="mt-8 grid gap-10 md:grid-cols-2 md:gap-16">
+          <Reveal className="md:sticky md:top-24 md:self-start">
+            <div className="group relative aspect-[4/5] overflow-hidden bg-stone">
+              <ProductMedia product={product} sizes="(min-width: 768px) 50vw, 100vw" priority />
+            </div>
           </Reveal>
 
-          <div>
+          <div className="md:py-10">
             <Reveal>
-              <p className="eyebrow">{product.mood} · {product.size}</p>
-              <h1 className="mt-3 text-6xl leading-[0.95] sm:text-7xl">{product.name}</h1>
-              <p className="mt-4 font-serif text-2xl italic text-clay">{product.tagline}</p>
-              <p className="mt-6 text-3xl">{formatPrice(product.price)}</p>
+              <p className="label">{product.mood}</p>
+              <h1 className="mt-4 text-6xl leading-[0.9] tracking-[-0.03em] sm:text-8xl">
+                {product.name}
+              </h1>
+              <p className="mt-5 font-serif text-2xl italic sm:text-3xl">{product.tagline}</p>
             </Reveal>
 
             <Reveal delay={0.1}>
-              <p className="mt-6 max-w-md text-lg leading-relaxed text-muted">{product.description}</p>
-              <ul className="mt-7 flex flex-wrap gap-2">
-                {product.notes.map((n) => (
-                  <li
-                    key={n}
-                    className="rounded-full px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em]"
-                    style={{ backgroundColor: product.tint }}
-                  >
-                    {n}
-                  </li>
+              <p className="mt-8 max-w-md text-lg leading-relaxed text-muted">{product.description}</p>
+              <div className="mt-10 flex items-center justify-between border-t border-line pt-6">
+                <span className="font-serif text-4xl">{formatPrice(product.price)}</span>
+                <AddToCartButton slug={product.slug} />
+              </div>
+              <dl className="mt-12">
+                {details.map(([k, v]) => (
+                  <div key={k} className="flex justify-between gap-6 border-t border-line py-4 text-sm">
+                    <dt className="label">{k}</dt>
+                    <dd className="text-right">{v}</dd>
+                  </div>
                 ))}
-              </ul>
-              <dl className="mt-8 grid max-w-md grid-cols-2 gap-4 border-y border-line py-5">
-                <div>
-                  <dt className="text-xs uppercase tracking-[0.2em] text-muted">Size</dt>
-                  <dd className="mt-1 font-serif text-2xl">{product.size}</dd>
-                </div>
-                <div>
-                  <dt className="text-xs uppercase tracking-[0.2em] text-muted">Burn time</dt>
-                  <dd className="mt-1 font-serif text-2xl">{product.burnTime}</dd>
-                </div>
               </dl>
-              <AddToCartButton slug={product.slug} />
             </Reveal>
           </div>
         </div>
       </div>
 
-      <section className="mx-auto max-w-7xl px-6 pb-24 pt-10">
-        <Reveal>
-          <h2 className="text-center text-5xl sm:text-6xl">
-            You may also <span className="italic text-clay">love</span>
-          </h2>
+      <section className="mx-auto max-w-[90rem] px-5 pb-28 sm:px-10">
+        <Reveal className="border-t border-line pt-10">
+          <h2 className="text-5xl tracking-[-0.03em] sm:text-6xl">You may also like</h2>
         </Reveal>
-        <div className="mx-auto mt-14 grid max-w-5xl gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
           {related.map((p, i) => (
-            <Reveal key={p.slug} delay={i * 0.1}>
+            <Reveal key={p.slug} delay={i * 0.08}>
               <ProductCard product={p} />
             </Reveal>
           ))}
