@@ -10,8 +10,11 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import CandleVisual from "./CandleVisual";
+import Image from "next/image";
+import Bokeh from "./Bokeh";
 import Embers from "./Embers";
+import HeroCollage from "./HeroCollage";
+import { getProduct } from "@/data/products";
 
 const WORDS = ["Light", "a", "little"];
 
@@ -35,6 +38,7 @@ export default function Hero() {
   const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   const ease = [0.22, 1, 0.36, 1] as const;
+  const backdrop = getProduct("diwali-gift-box")?.image;
 
   return (
     <section
@@ -47,6 +51,20 @@ export default function Hero() {
         my.set((e.clientY - r.top) / r.height - 0.5);
       }}
     >
+      {backdrop && (
+        <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+          <Image
+            src={backdrop}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="scale-125 object-cover opacity-35 blur-3xl saturate-150"
+          />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_45%,rgba(27,19,14,0.1),rgba(27,19,14,0.85)_75%)]" />
+        </div>
+      )}
+      <Bokeh />
       <motion.div
         aria-hidden
         className="pointer-events-none absolute right-[-10%] top-1/2 h-[46rem] w-[46rem] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(240,162,79,0.28),rgba(201,166,107,0.08)_45%,transparent_70%)] lg:right-[2%]"
@@ -110,15 +128,12 @@ export default function Hero() {
         <motion.div
           style={{ y: candleY, perspective: 1200 }}
           className="flex justify-center"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.6, delay: 0.3, ease }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2, delay: 0.2, ease }}
         >
-          <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}>
-            <CandleVisual
-              color="#c98b5e"
-              className="candle-float w-56 drop-shadow-[0_30px_60px_rgba(0,0,0,0.5)] sm:w-72 lg:w-[23rem]"
-            />
+          <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} className="w-full">
+            <HeroCollage mx={smx} my={smy} />
           </motion.div>
         </motion.div>
       </div>
