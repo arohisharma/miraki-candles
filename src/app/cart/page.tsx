@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import CheckoutButton from "@/components/CheckoutButton";
 import { formatPrice, getProduct } from "@/data/products";
 import { removeFromCart, setQuantity, useCart } from "@/lib/cart-store";
 
@@ -92,14 +93,7 @@ export default function CartPage() {
           <span>{formatPrice(subtotal)}</span>
         </div>
         <p className="mt-1 text-sm text-muted">Shipping and taxes calculated at checkout.</p>
-        {/* Checkout is not wired up yet (needs a payment provider). */}
-        <button
-          type="button"
-          disabled
-          className="mt-6 w-full bg-accent px-8 py-3 text-sm uppercase tracking-widest text-white opacity-50"
-        >
-          Checkout (coming soon)
-        </button>
+        <CheckoutButton items={cart} />
       </div>
     </div>
   );

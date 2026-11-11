@@ -78,6 +78,11 @@ export function setQuantity(slug: string, quantity: number) {
   );
 }
 
+export function clearCart() {
+  load();
+  commit(EMPTY);
+}
+
 export function removeFromCart(slug: string) {
   setQuantity(slug, 0);
 }
