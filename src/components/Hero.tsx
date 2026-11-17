@@ -11,13 +11,6 @@ import SoundToggle from "./SoundToggle";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-// Stock footage from Pexels, standing in until Miraki has its own film.
-const VIDEO = {
-  desktop: "https://videos.pexels.com/video-files/5092038/5092038-hd_1920_1080_24fps.mp4",
-  mobile: "https://videos.pexels.com/video-files/40429172/17275379_720_1280_60fps.mp4",
-  poster: "https://images.pexels.com/videos/5092038/noche-velas-velas-encendidas-5092038.jpeg?auto=compress&w=1920",
-};
-
 /** Splits a word into letters that rise and sharpen one after another. */
 function Letters({ text, delay, className = "" }: { text: string; delay: number; className?: string }) {
   return (
@@ -73,16 +66,16 @@ export default function Hero() {
         loop
         playsInline
         preload="auto"
-        poster={VIDEO.poster}
+        poster={h.video.poster}
         aria-hidden
       >
-        <source media="(max-width: 767px)" src={VIDEO.mobile} type="video/mp4" />
-        <source src={VIDEO.desktop} type="video/mp4" />
+        <source media="(max-width: 767px)" src={h.video.mobile} type="video/mp4" />
+        <source src={h.video.desktop} type="video/mp4" />
       </motion.video>
 
       {/* shade so the type always reads */}
-      <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/30 to-transparent" />
-      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/40" />
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/25 to-transparent" />
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/5 to-black/45" />
       {SEASON === "winter" && <Snow count={110} />}
 
       <motion.div

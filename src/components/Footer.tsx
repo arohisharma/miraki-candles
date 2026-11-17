@@ -4,7 +4,7 @@ import { season } from "@/lib/season";
 export default function Footer() {
   return (
     <footer className="overflow-hidden border-t border-line">
-      <div className="mx-auto max-w-[90rem] px-5 pt-16 sm:px-10 sm:pt-24">
+      <div className="mx-auto max-w-[90rem] px-5 pt-14 sm:px-10 sm:pt-16">
         <div className="grid gap-12 md:grid-cols-12">
           <p className="font-serif text-2xl leading-tight md:col-span-6 sm:text-3xl">
             {season.footer.before}
@@ -26,7 +26,7 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-16 flex justify-between border-t border-line pt-6 text-xs text-muted">
+        <div className="mt-12 flex justify-between border-t border-line pt-6 text-xs text-muted">
           <span>© 2026 Miraki Candles</span>
           <span>Handmade with love</span>
         </div>

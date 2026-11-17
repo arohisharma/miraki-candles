@@ -17,7 +17,17 @@ export type Ritual = {
 };
 
 type SeasonContent = {
-  hero: { label: string; line1: string; accentWord: string; copy: string; image: string; alt: string };
+  hero: {
+    label: string;
+    line1: string;
+    accentWord: string;
+    copy: string;
+    /** Still used for link previews. */
+    image: string;
+    alt: string;
+    /** Background film. Stock footage from Pexels, standing in for Miraki's own. */
+    video: { desktop: string; mobile: string; poster: string };
+  };
   statement: { before: string; accent: string };
   rituals: Ritual[];
   values: string[];
@@ -37,6 +47,11 @@ const CONTENT: Record<Season, SeasonContent> = {
       copy: "Hand-poured candles for the quiet moments.",
       image: unsplash("photo-1669334388727-9a3437e12fa2", 2000),
       alt: "A lit candle glowing in a ribbed glass",
+      video: {
+        desktop: "https://videos.pexels.com/video-files/5092038/5092038-hd_1920_1080_24fps.mp4",
+        mobile: "https://videos.pexels.com/video-files/40429172/17275379_720_1280_60fps.mp4",
+        poster: "https://images.pexels.com/videos/5092038/noche-velas-velas-encendidas-5092038.jpeg?auto=compress&w=1920",
+      },
     },
     statement: { before: "Small flames,", accent: "slow evenings." },
     rituals: [
@@ -72,9 +87,14 @@ const CONTENT: Record<Season, SeasonContent> = {
       label: "The Winter Edit",
       line1: "Light a little",
       accentWord: "warmth",
-      copy: "Hand-poured candles for the longest nights of the year.",
-      image: unsplash("photo-1607838658695-2eb904803901", 2000),
-      alt: "A lit candle among pine branches",
+      copy: "Hand-poured candles for the merriest nights of the year.",
+      image: "https://images.pexels.com/videos/4076197/pexels-photo-4076197.jpeg?auto=compress&w=2000",
+      alt: "A house glowing with Christmas lights among snowy trees",
+      video: {
+        desktop: "https://videos.pexels.com/video-files/4076197/4076197-hd_1920_1080_30fps.mp4",
+        mobile: "https://videos.pexels.com/video-files/4076197/4076197-sd_960_540_30fps.mp4",
+        poster: "https://images.pexels.com/videos/4076197/pexels-photo-4076197.jpeg?auto=compress&w=1920",
+      },
     },
     statement: { before: "Short days.", accent: "Long, golden nights." },
     rituals: [

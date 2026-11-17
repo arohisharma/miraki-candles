@@ -36,7 +36,7 @@ export default function Header() {
           className={`border-b transition-colors duration-500 ${
             overlay
               ? "border-transparent bg-transparent text-paper"
-              : "border-line bg-paper/90 text-ink backdrop-blur-md"
+              : "border-line bg-paper text-ink"
           }`}
         >
           <div className="mx-auto flex h-16 max-w-[90rem] items-center justify-between px-5 sm:h-20 sm:px-10">
@@ -49,7 +49,7 @@ export default function Header() {
                   {l.label}
                 </Link>
               ))}
-              <CartLink />
+              <CartLink onDark={overlay} />
             </nav>
           </div>
         </header>

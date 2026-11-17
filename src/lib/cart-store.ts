@@ -90,3 +90,28 @@ export function removeFromCart(slug: string) {
 export function useCart() {
   return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
+
+/* ---------- Slide-out bag (drawer) open state ---------- */
+
+let drawerOpen = false;
+const drawerListeners = new Set<() => void>();
+
+function setDrawer(next: boolean) {
+  if (drawerOpen === next) return;
+  drawerOpen = next;
+  drawerListeners.forEach((l) => l());
+}
+
+export const openBag = () => setDrawer(true);
+export const closeBag = () => setDrawer(false);
+
+export function useBagOpen() {
+  return useSyncExternalStore(
+    (cb) => {
+      drawerListeners.add(cb);
+      return () => drawerListeners.delete(cb);
+    },
+    () => drawerOpen,
+    () => false,
+  );
+}

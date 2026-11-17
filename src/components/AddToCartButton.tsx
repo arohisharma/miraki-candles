@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { addToCart } from "@/lib/cart-store";
+import { addToCart, openBag } from "@/lib/cart-store";
 import { chime } from "@/lib/sound";
 
 export default function AddToCartButton({ slug }: { slug: string }) {
@@ -22,6 +22,7 @@ export default function AddToCartButton({ slug }: { slug: string }) {
         onClick={() => {
           addToCart(slug);
           chime();
+          openBag();
           setAdded(true);
         }}
         className="btn"

@@ -10,7 +10,7 @@ export default function PageHero({
   subtitle?: string;
 }) {
   return (
-    <section className="mx-auto max-w-[90rem] px-5 pb-12 pt-12 sm:px-10 sm:pb-16 sm:pt-20">
+    <section className="mx-auto max-w-[90rem] px-5 pb-10 pt-10 sm:px-10 sm:pb-12 sm:pt-16">
       <Reveal>
         <p className="label">{eyebrow}</p>
         <h1 className="mt-5 max-w-5xl text-[clamp(3.5rem,10vw,9rem)] leading-[0.9] tracking-[-0.03em]">
