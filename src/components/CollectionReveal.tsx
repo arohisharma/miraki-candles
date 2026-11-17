@@ -41,7 +41,7 @@ export default function CollectionReveal() {
           <h2 className="mt-6 text-[clamp(3.8rem,11vw,11rem)] leading-[0.86] tracking-[-0.035em]">
             {t.title}
             <br />
-            <em className="text-[#f1c48f]">{t.accent}</em>
+            <em className="text-glow">{t.accent}</em>
           </h2>
           <p className="mt-6 font-serif text-base italic text-paper/80 sm:text-lg">{t.notes.join(" · ")}</p>
           <Link href="/contact" className="btn btn-paper mt-10" data-cursor="Notify">

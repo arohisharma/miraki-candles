@@ -12,8 +12,11 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
-    // Sample stock photos are loaded from Unsplash (see USE_SAMPLE_PHOTOS in src/data/products.ts).
-    remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
+    // Sample stock photos are loaded from Unsplash and Pexels (see USE_SAMPLE_PHOTOS in src/data/products.ts).
+    remotePatterns: [
+      { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "images.pexels.com" },
+    ],
   },
 };
 

@@ -16,6 +16,11 @@ export type Ritual = {
   alt: string;
 };
 
+export type Photo = { image: string; alt: string };
+
+/** A dot on a photo, positioned in % from the top-left. A product spot opens a buy card. */
+export type Spot = { x: number; y: number } & ({ product: string } | { label: string });
+
 type SeasonContent = {
   hero: {
     label: string;
@@ -29,6 +34,18 @@ type SeasonContent = {
     video: { desktop: string; mobile: string; poster: string };
   };
   statement: { before: string; accent: string };
+  /** Three small photos floating around the statement. */
+  collage: Photo[];
+  /** An annotated lifestyle photo: tap the dots to shop or read the story. */
+  look: {
+    title: string;
+    accent: string;
+    line: string;
+    image: string;
+    alt: string;
+    spots: Spot[];
+  };
+  gifts: { title: string; accent: string; items: { title: string; pair: string; image: string; alt: string }[] };
   rituals: Ritual[];
   values: string[];
   band: { before: string; accent: string; cta: string };
@@ -54,6 +71,32 @@ const CONTENT: Record<Season, SeasonContent> = {
       },
     },
     statement: { before: "Small flames,", accent: "slow evenings." },
+    collage: [
+      { image: unsplash("photo-1611485951311-c382a4c27047", 700), alt: "A candle on a blanket beside an open book" },
+      { image: unsplash("photo-1648199905043-e913568802c9", 700), alt: "A candle on a bath tray" },
+      { image: unsplash("photo-1603897076223-17f346f02a03", 700), alt: "A candle wrapped as a gift" },
+    ],
+    look: {
+      title: "Movie night,",
+      accent: "sorted.",
+      line: "Tap around the room.",
+      image: unsplash("photo-1776175224702-277255753cc8", 1400),
+      alt: "A candle glowing beside a drink in a room lit by a film",
+      spots: [
+        { x: 45, y: 27, label: "Your favourite show" },
+        { x: 57, y: 66, label: "Something to sip" },
+        { x: 80, y: 62, product: "rose-petal-jar" },
+      ],
+    },
+    gifts: {
+      title: "Gifts that feel like a",
+      accent: "hug",
+      items: [
+        { title: "For the one who has everything", pair: "rose-petal-jar", image: unsplash("photo-1603897076223-17f346f02a03", 900), alt: "A candle wrapped with twine" },
+        { title: "For the bookworm", pair: "ocean-daisy-jar", image: unsplash("photo-1695755117860-da93d1aaf96b", 900), alt: "A candle on a blanket with a book" },
+        { title: "Little luxuries", pair: "lotus-bloom", image: unsplash("photo-1648199905043-e913568802c9", 900), alt: "A candle on a bath tray" },
+      ],
+    },
     rituals: [
       {
         word: "Gift.",
@@ -87,39 +130,65 @@ const CONTENT: Record<Season, SeasonContent> = {
       label: "The Winter Edit",
       line1: "Light a little",
       accentWord: "warmth",
-      copy: "Hand-poured candles for the merriest nights of the year.",
-      image: "https://images.pexels.com/videos/4076197/pexels-photo-4076197.jpeg?auto=compress&w=2000",
-      alt: "A house glowing with Christmas lights among snowy trees",
+      copy: "Snow outside. A warm glow within. Candles poured for dreamy winter nights.",
+      image: "https://images.pexels.com/videos/6098142/pexels-photo-6098142.jpeg?auto=compress&w=2000",
+      alt: "Candles glowing among Christmas gifts and fairy lights",
       video: {
-        desktop: "https://videos.pexels.com/video-files/4076197/4076197-hd_1920_1080_30fps.mp4",
-        mobile: "https://videos.pexels.com/video-files/4076197/4076197-sd_960_540_30fps.mp4",
-        poster: "https://images.pexels.com/videos/4076197/pexels-photo-4076197.jpeg?auto=compress&w=1920",
+        desktop: "https://videos.pexels.com/video-files/6098142/6098142-hd_1920_1080_25fps.mp4",
+        mobile: "https://videos.pexels.com/video-files/14854887/14854887-hd_720_1280_30fps.mp4",
+        poster: "https://images.pexels.com/videos/6098142/pexels-photo-6098142.jpeg?auto=compress&w=1920",
       },
     },
-    statement: { before: "Short days.", accent: "Long, golden nights." },
+    statement: { before: "Snow outside.", accent: "Warmth within." },
+    collage: [
+      { image: unsplash("photo-1612478700324-a39e1f1c4952", 700), alt: "A smiling snowman in a snowy garden" },
+      { image: unsplash("photo-1704799897069-5c8ac0c31c1b", 700), alt: "Someone in a red coat and hat among snowy trees" },
+      { image: unsplash("photo-1608735484399-b7ec8f9945c1", 700), alt: "Two mugs of hot chocolate with cinnamon" },
+    ],
     rituals: [
+      {
+        word: "Snow day.",
+        line: "Stay in. Light up.",
+        pair: "rose-petal-jar",
+        image: "https://images.pexels.com/videos/14854887/aesthetic-book-reading-by-the-window-cosy-14854887.jpeg?auto=compress&w=2000",
+        alt: "Candles glowing on a windowsill beside dried flowers, with snow outside",
+      },
+      {
+        word: "Self-care.",
+        line: "A bath, a book, a slow Sunday.",
+        pair: "ocean-daisy-jar",
+        image: unsplash("photo-1648199905043-e913568802c9", 2000),
+        alt: "A candle on a wooden bath tray",
+      },
       {
         word: "Gift.",
         line: "The one they open first.",
         pair: "diwali-gift-box",
-        image: unsplash("photo-1573853019548-c38efdbc2f09", 2000),
-        alt: "Gifts wrapped in brown paper with red ribbon",
-      },
-      {
-        word: "Snow.",
-        line: "Nobody is going anywhere today.",
-        pair: "rose-petal-jar",
-        image: unsplash("photo-1640095889747-2090ee12fa7d", 2000),
-        alt: "A lit candle on a windowsill in winter light",
-      },
-      {
-        word: "Together.",
-        line: "Everyone at one table.",
-        pair: "ocean-daisy-jar",
-        image: unsplash("photo-1608306680588-ef9108144c76", 2000),
-        alt: "A Christmas table set with red candles and flowers",
+        image: unsplash("photo-1766240124701-a72ca2f39754", 2000),
+        alt: "A pink and red Christmas flat-lay with wrapped gifts",
       },
     ],
+    look: {
+      title: "Movie night,",
+      accent: "sorted.",
+      line: "Tap around the room.",
+      image: unsplash("photo-1776175224702-277255753cc8", 1400),
+      alt: "A candle glowing beside a drink in a room lit by a film",
+      spots: [
+        { x: 45, y: 27, label: "Your favourite show" },
+        { x: 57, y: 66, label: "Something warm to sip" },
+        { x: 80, y: 62, product: "rose-petal-jar" },
+      ],
+    },
+    gifts: {
+      title: "Gifts that feel like a",
+      accent: "hug",
+      items: [
+        { title: "For the one who has everything", pair: "rose-petal-jar", image: unsplash("photo-1735720520964-6f0718bcef81", 900), alt: "A pink Christmas tree glowing with lights" },
+        { title: "Secret Santa", pair: "diwali-gift-box", image: unsplash("photo-1671150590142-d2637ab7c670", 900), alt: "Gifts wrapped in red with ribbon" },
+        { title: "Little luxuries", pair: "lotus-bloom", image: unsplash("photo-1766183683880-74d8578e52bc", 900), alt: "A cosy pink Christmas scene with ornaments" },
+      ],
+    },
     values: ["Soy wax", "Hand-poured", "Small batches", "Made to gift"],
     band: { before: "Give the gift of a slow", accent: "winter", cta: "Shop gifts" },
     footer: { before: "Poured by hand,", accent: "winter nights" },

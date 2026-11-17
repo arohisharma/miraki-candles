@@ -1,5 +1,8 @@
 import { unsplash } from "@/lib/unsplash";
 
+export type Moment = "Snow day" | "Movie night" | "Self-care" | "Gifting";
+export const MOMENTS: Moment[] = ["Snow day", "Movie night", "Self-care", "Gifting"];
+
 export type Mood = "Serene" | "Festive" | "Romantic" | "Fresh";
 
 export type Product = {
@@ -12,6 +15,8 @@ export type Product = {
   burnTime: string;
   notes: string[];
   mood: Mood;
+  /** The moments this candle belongs to, for "shop by moment". */
+  moments: Moment[];
   color: string; // tint for the illustrated candle shown until a photo is added
   /** Soft pastel background used behind this product. */
   tint: string;
@@ -44,10 +49,11 @@ const catalogue: Product[] = [
     burnTime: "12 hours",
     notes: ["Lotus", "Rose", "Musk"],
     mood: "Serene",
+    moments: ["Self-care", "Gifting"],
     color: "#c2185b",
     tint: "#f9d9e3",
     image: "/products/lotus-bloom.jpg",
-    sampleImage: unsplash("photo-1707839568483-9f1924d5f5de"),
+    sampleImage: unsplash("photo-1674812709782-3e44e27676aa"),
     imagePosition: "50% 85%",
     featured: true,
   },
@@ -62,10 +68,11 @@ const catalogue: Product[] = [
     burnTime: "Assorted",
     notes: ["Marigold", "Sandalwood", "Vanilla"],
     mood: "Festive",
+    moments: ["Gifting"],
     color: "#e8751a",
     tint: "#fbe5bb",
     image: "/products/diwali-gift-box.jpg",
-    sampleImage: unsplash("photo-1707839568443-912e7206c726"),
+    sampleImage: unsplash("photo-1603666048331-3ddd6d4fe3fd"),
     imagePosition: "50% 40%",
     featured: true,
   },
@@ -80,10 +87,11 @@ const catalogue: Product[] = [
     burnTime: "40 hours",
     notes: ["Rose", "Peony", "Vanilla"],
     mood: "Romantic",
+    moments: ["Movie night", "Snow day"],
     color: "#e0679a",
     tint: "#fbe1d6",
     image: "/products/rose-petal-jar.jpg",
-    sampleImage: unsplash("photo-1745125996226-879b0cb74e8f"),
+    sampleImage: unsplash("photo-1754327018756-7821c7c4c633"),
     imagePosition: "50% 80%",
     featured: true,
   },
@@ -98,10 +106,11 @@ const catalogue: Product[] = [
     burnTime: "40 hours",
     notes: ["Sea breeze", "Daisy", "White musk"],
     mood: "Fresh",
+    moments: ["Snow day", "Self-care", "Movie night"],
     color: "#3b8fd1",
     tint: "#d6e8f4",
     image: "/products/ocean-daisy-jar.jpg",
-    sampleImage: unsplash("photo-1707839568938-f9b50bb88454"),
+    sampleImage: unsplash("photo-1601405821471-517197a99c5d"),
     imagePosition: "50% 30%",
   },
 ];

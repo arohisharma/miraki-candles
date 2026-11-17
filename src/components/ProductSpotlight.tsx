@@ -29,7 +29,7 @@ export default function ProductSpotlight({ product, delay }: { product: Product;
       <div className="flex min-w-0 flex-1 flex-col justify-between py-1">
         <div>
           <p className="flex items-center gap-2 text-[0.62rem] font-medium uppercase tracking-[0.2em] text-paper/70">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#e3a35b]" /> Bestseller
+            <span className="h-1.5 w-1.5 rounded-full bg-glow" /> Bestseller
           </p>
           <Link href={`/shop/${product.slug}`} className="mt-1.5 block font-serif text-xl leading-tight">
             {product.name}
@@ -39,7 +39,7 @@ export default function ProductSpotlight({ product, delay }: { product: Product;
         <QuickAdd
           slug={product.slug}
           label="Add to bag"
-          className="mt-3 self-start bg-paper px-4 py-2.5 text-[0.62rem] font-medium uppercase tracking-[0.18em] text-ink transition-colors duration-500 hover:bg-[#e3a35b]"
+          className="mt-3 self-start bg-paper px-4 py-2.5 text-[0.62rem] font-medium uppercase tracking-[0.18em] text-ink transition-colors duration-500 hover:bg-glow"
         />
       </div>
     </motion.div>

@@ -1,47 +1,25 @@
 import Link from "next/link";
 import CollectionReveal from "@/components/CollectionReveal";
+import GiftGuide from "@/components/GiftGuide";
 import Hero from "@/components/Hero";
-import ProductCard from "@/components/ProductCard";
 import Reveal from "@/components/Reveal";
 import RitualGallery from "@/components/RitualGallery";
-import ScrollWords from "@/components/ScrollWords";
+import ShopByMoment from "@/components/ShopByMoment";
+import ShopTheLook from "@/components/ShopTheLook";
 import Snow from "@/components/Snow";
+import StoryCollage from "@/components/StoryCollage";
 import VelocityMarquee from "@/components/VelocityMarquee";
-import { products } from "@/data/products";
 import { SEASON, season } from "@/lib/season";
 
 export default function Home() {
   return (
     <>
       <Hero />
-
-      {/* One line, lit word by word */}
-      <section className="mx-auto max-w-[90rem] px-5 py-20 text-center sm:px-10 sm:py-28">
-        <ScrollWords
-          className="mx-auto max-w-5xl font-serif text-[clamp(3rem,8vw,8rem)] leading-[0.95] tracking-[-0.03em]"
-          text={`${season.statement.before} ${season.statement.accent}`}
-        />
-      </section>
-
+      <StoryCollage />
       <RitualGallery />
-
-      {/* Collection */}
-      <section className="mx-auto max-w-[90rem] px-5 py-20 sm:px-10 sm:py-28">
-        <Reveal className="flex items-end justify-between">
-          <h2 className="text-6xl leading-[0.9] tracking-[-0.03em] sm:text-8xl">
-            The <em className="text-accent">collection</em>
-          </h2>
-          <Link href="/shop" className="link text-sm">View all</Link>
-        </Reveal>
-        <div className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-          {products.map((p, i) => (
-            <Reveal key={p.slug} delay={i * 0.08} className={i % 2 === 1 ? "lg:mt-12" : ""}>
-              <ProductCard product={p} />
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
+      <ShopTheLook />
+      <ShopByMoment />
+      <GiftGuide />
       <CollectionReveal />
 
       <div className="py-10 sm:py-14">

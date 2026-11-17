@@ -41,7 +41,7 @@ export default function Header() {
         >
           <div className="mx-auto flex h-16 max-w-[90rem] items-center justify-between px-5 sm:h-20 sm:px-10">
             <Link href="/" className="font-serif text-[1.7rem] leading-none tracking-tight sm:text-3xl">
-              Miraki<span className={overlay ? "text-[#f1c48f]" : "text-accent"}>.</span>
+              Miraki<span className={overlay ? "text-glow" : "text-accent"}>.</span>
             </Link>
             <nav className="flex items-center gap-3.5 text-[0.62rem] font-medium uppercase tracking-[0.14em] sm:gap-10 sm:text-[0.7rem] sm:tracking-[0.18em]">
               {links.map((l) => (

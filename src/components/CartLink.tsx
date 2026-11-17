@@ -14,7 +14,7 @@ export default function CartLink({ onDark = false }: { onDark?: boolean }) {
       aria-haspopup="dialog"
       className="link link-quiet uppercase tracking-[inherit]"
     >
-      Cart{count > 0 && <span className={`ml-1 ${onDark ? "text-[#f1c48f]" : "text-accent"}`}>({count})</span>}
+      Cart{count > 0 && <span className={`ml-1 ${onDark ? "text-glow" : "text-accent"}`}>({count})</span>}
     </button>
   );
 }

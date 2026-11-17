@@ -105,7 +105,7 @@ export default function Hero() {
           </span>
           <Letters text={h.line1} delay={t0 + 0.1} />
           <br />
-          <Letters text={`${h.accentWord}.`} delay={t0 + 0.55} className="italic text-[#f1c48f]" />
+          <Letters text={`${h.accentWord}.`} delay={t0 + 0.55} className="italic text-glow" />
         </h1>
 
         <div className="mt-8 grid gap-6 md:mt-14 md:gap-8 md:grid-cols-12 md:items-end">
