@@ -122,7 +122,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.1, delay: t0 + 1, ease }}
           >
-            <p className="hidden max-w-md text-lg leading-relaxed text-paper/85 sm:block">{h.copy}</p>
+            <p className="hidden max-w-sm text-[0.95rem] leading-relaxed text-paper/80 sm:block">{h.copy}</p>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-5 sm:mt-8">
               <Link href="/shop" className="btn btn-paper">Shop the collection</Link>
               <SoundToggle className="text-paper/85" />

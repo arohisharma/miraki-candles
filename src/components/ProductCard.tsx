@@ -18,7 +18,7 @@ export default function ProductCard({ product }: { product: Product }) {
         />
       </div>
       <Link href={href} className="mt-4 flex items-baseline justify-between gap-4">
-        <h3 className="text-2xl leading-tight">
+        <h3 className="text-xl leading-tight">
           <span className="link link-quiet">{product.name}</span>
         </h3>
         <span className="text-sm tabular-nums">{formatPrice(product.price)}</span>

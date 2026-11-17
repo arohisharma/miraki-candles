@@ -5,7 +5,7 @@ import Reveal from "@/components/Reveal";
 export const metadata: Metadata = { title: "Contact" };
 
 const field =
-  "mt-2 w-full border-0 border-b border-line bg-transparent px-0 py-3 text-xl outline-none transition-colors duration-500 focus:border-accent";
+  "mt-2 w-full border-0 border-b border-line bg-transparent px-0 py-3 text-lg outline-none transition-colors duration-500 focus:border-accent";
 
 export default function ContactPage() {
   return (

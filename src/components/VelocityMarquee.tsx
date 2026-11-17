@@ -46,10 +46,10 @@ export default function VelocityMarquee({ items, baseSpeed = 2 }: { items: strin
   );
 
   return (
-    <div ref={ref} className="overflow-hidden border-y border-line py-6 sm:py-10" aria-label={items.join(", ")}>
+    <div ref={ref} className="overflow-hidden border-y border-line py-5 sm:py-7" aria-label={items.join(", ")}>
       <motion.div
         aria-hidden
-        className="flex whitespace-nowrap font-serif text-[clamp(3.5rem,11vw,10rem)] leading-none tracking-[-0.03em]"
+        className="flex whitespace-nowrap font-serif text-[clamp(2.25rem,6vw,5.5rem)] leading-none tracking-[-0.03em]"
         style={{ x }}
       >
         {row}

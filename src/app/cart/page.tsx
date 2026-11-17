@@ -48,7 +48,7 @@ export default function CartPage() {
               <div className="flex flex-1 flex-col justify-between">
                 <div className="flex justify-between gap-4">
                   <div>
-                    <Link href={`/shop/${product.slug}`} className="font-serif text-3xl leading-none">
+                    <Link href={`/shop/${product.slug}`} className="font-serif text-2xl leading-none">
                       {product.name}
                     </Link>
                     <p className="mt-2 text-sm text-muted">{product.size}</p>
@@ -94,7 +94,7 @@ export default function CartPage() {
           <div className="border-t border-ink pt-6 lg:sticky lg:top-24">
             <div className="flex items-baseline justify-between">
               <span className="label">Subtotal</span>
-              <span className="font-serif text-5xl">{formatPrice(subtotal)}</span>
+              <span className="font-serif text-4xl">{formatPrice(subtotal)}</span>
             </div>
             <p className="mt-3 text-sm text-muted">Shipping and taxes calculated at checkout.</p>
             <CheckoutButton items={cart} />

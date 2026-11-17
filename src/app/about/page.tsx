@@ -29,10 +29,10 @@ export default function AboutPage() {
         <div className="md:col-span-9">
           {/* TODO: replace with the client's real brand story */}
           <ScrollWords
-            className="font-serif text-[clamp(2rem,4.4vw,4.4rem)] leading-[1.06] tracking-[-0.02em]"
+            className="font-serif text-[clamp(1.75rem,3.2vw,3.2rem)] leading-[1.06] tracking-[-0.02em]"
             text="The best moments are the slow ones. Something warm to drink, a room gone soft, a small flame keeping you company."
           />
-          <div className="mt-14 grid max-w-3xl gap-8 text-lg leading-relaxed text-muted sm:grid-cols-2">
+          <div className="mt-12 grid max-w-3xl gap-8 text-base leading-relaxed text-muted sm:grid-cols-2">
             <Reveal>
               <p>
                 Every Miraki candle is shaped and poured by hand, in small batches, with the same

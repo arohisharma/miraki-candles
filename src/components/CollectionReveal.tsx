@@ -43,7 +43,7 @@ export default function CollectionReveal() {
             <br />
             <em className="text-[#f1c48f]">{t.accent}</em>
           </h2>
-          <p className="mt-7 font-serif text-xl italic text-paper/80 sm:text-2xl">{t.notes.join(" · ")}</p>
+          <p className="mt-6 font-serif text-base italic text-paper/80 sm:text-lg">{t.notes.join(" · ")}</p>
           <Link href="/contact" className="btn btn-paper mt-10" data-cursor="Notify">
             Be the first to know
           </Link>

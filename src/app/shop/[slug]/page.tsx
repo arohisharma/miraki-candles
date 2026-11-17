@@ -80,13 +80,13 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
               <h1 className="mt-4 text-6xl leading-[0.9] tracking-[-0.03em] sm:text-8xl">
                 {product.name}
               </h1>
-              <p className="mt-5 font-serif text-2xl italic sm:text-3xl">{product.tagline}</p>
+              <p className="mt-4 font-serif text-lg italic sm:text-xl">{product.tagline}</p>
             </Reveal>
 
             <Reveal delay={0.1}>
-              <p className="mt-8 max-w-md text-lg leading-relaxed text-muted">{product.description}</p>
+              <p className="mt-6 max-w-md text-base leading-relaxed text-muted">{product.description}</p>
               <div className="mt-10 flex items-center justify-between border-t border-line pt-6">
-                <span className="font-serif text-4xl">{formatPrice(product.price)}</span>
+                <span className="font-serif text-3xl">{formatPrice(product.price)}</span>
                 <AddToCartButton slug={product.slug} />
               </div>
               <dl className="mt-12">

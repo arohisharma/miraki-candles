@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { motion, useScroll, useSpring, useTransform, type MotionValue } from "motion/react";
 import { getProduct } from "@/data/products";
 import { season, type Ritual } from "@/lib/season";
 
@@ -42,12 +42,12 @@ function Panel({
           {ritual.word}
         </motion.h3>
         <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <p className="font-serif text-2xl sm:text-3xl">{ritual.line}</p>
+          <p className="font-serif text-lg sm:text-xl">{ritual.line}</p>
           {product && (
             <Link
               href={`/shop/${product.slug}`}
               data-cursor="Shop"
-              className="link self-start text-[0.7rem] font-medium uppercase tracking-[0.2em] sm:self-auto"
+              className="link self-start text-[0.65rem] font-medium uppercase tracking-[0.2em] sm:self-auto"
             >
               {product.name} →
             </Link>
@@ -63,12 +63,25 @@ export default function RitualGallery() {
   const ref = useRef<HTMLElement>(null);
   const rituals = season.rituals;
   const n = rituals.length;
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", `-${((n - 1) / n) * 100}%`]);
+  const { scrollYProgress: raw } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  // A light spring on top of the scroll so the slide glides instead of tracking every flick.
+  const scrollYProgress = useSpring(raw, { stiffness: 70, damping: 22, mass: 0.6 });
+
+  // Each photo holds still for a moment before the next one slides in.
+  const HOLD = 0.12;
+  const input: number[] = [];
+  const output: string[] = [];
+  for (let i = 0; i < n; i++) {
+    const c = n > 1 ? i / (n - 1) : 0;
+    const at = `-${(i / n) * 100}%`;
+    input.push(Math.max(0, c - HOLD), Math.min(1, c + HOLD));
+    output.push(at, at);
+  }
+  const x = useTransform(scrollYProgress, input, output);
   const bar = useTransform(scrollYProgress, [0, 1], [1 / n, 1]);
 
   return (
-    <section ref={ref} className="relative bg-ink" style={{ height: `${n * 100}vh` }} aria-label="Rituals">
+    <section ref={ref} className="relative bg-ink" style={{ height: `${n * 190}vh` }} aria-label="Rituals">
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         <motion.div className="flex h-full" style={{ x, width: `${n * 100}vw` }}>
           {rituals.map((r, i) => (

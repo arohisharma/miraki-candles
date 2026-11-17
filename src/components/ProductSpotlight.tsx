@@ -31,7 +31,7 @@ export default function ProductSpotlight({ product, delay }: { product: Product;
           <p className="flex items-center gap-2 text-[0.62rem] font-medium uppercase tracking-[0.2em] text-paper/70">
             <span className="h-1.5 w-1.5 rounded-full bg-[#e3a35b]" /> Bestseller
           </p>
-          <Link href={`/shop/${product.slug}`} className="mt-1.5 block font-serif text-2xl leading-tight">
+          <Link href={`/shop/${product.slug}`} className="mt-1.5 block font-serif text-xl leading-tight">
             {product.name}
           </Link>
           <p className="text-sm text-paper/70">{formatPrice(product.price)}</p>
