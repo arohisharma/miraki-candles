@@ -8,7 +8,7 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <div className="group">
       <div className="relative aspect-[4/5] overflow-hidden bg-stone">
-        <Link href={href} aria-label={product.name} className="absolute inset-0">
+        <Link href={href} aria-label={product.name} data-cursor="View" className="absolute inset-0">
           <ProductMedia product={product} />
         </Link>
         <QuickAdd
@@ -23,7 +23,6 @@ export default function ProductCard({ product }: { product: Product }) {
         </h3>
         <span className="text-sm tabular-nums">{formatPrice(product.price)}</span>
       </Link>
-      <p className="mt-1 text-sm text-muted">{product.tagline}</p>
     </div>
   );
 }

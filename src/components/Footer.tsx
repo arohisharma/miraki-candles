@@ -23,7 +23,6 @@ export default function Footer() {
             <p className="label">Say hello</p>
             <ul className="mt-5 space-y-3">
               <li><Link href="/contact" className="link link-quiet">Contact</Link></li>
-              <li className="text-muted">Custom &amp; wholesale enquiries welcome</li>
             </ul>
           </div>
         </div>

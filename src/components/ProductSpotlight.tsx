@@ -15,7 +15,7 @@ export default function ProductSpotlight({ product, delay }: { product: Product;
       transition={{ duration: 1.2, delay, ease: [0.22, 1, 0.36, 1] }}
       className="flex w-full max-w-sm gap-4 border border-paper/15 bg-paper/10 p-3 backdrop-blur-xl"
     >
-      <Link href={`/shop/${product.slug}`} className="relative block h-32 w-24 shrink-0 overflow-hidden bg-paper/10">
+      <Link href={`/shop/${product.slug}`} data-cursor="View" className="relative block h-32 w-24 shrink-0 overflow-hidden bg-paper/10">
         {product.image && (
           <Image
             src={product.image}
