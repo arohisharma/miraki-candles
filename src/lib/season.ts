@@ -133,18 +133,14 @@ const CONTENT: Record<Season, SeasonContent> = {
       line1: "Light a little",
       accentWord: "warmth",
       copy: "Snow outside. A warm glow within. Candles poured for dreamy winter nights.",
-      image: "https://images.pexels.com/videos/30125806/author-book-lovers-candle-arrangement-comfortable-30125806.jpeg?auto=compress&w=2000",
-      alt: "Real candles burning by a window beside an open book and a cup of tea",
-      // Real flames only: never show battery or LED candles.
+      image: "/hero/winter-hero-poster.jpg",
+      alt: "Glowing golden Christmas trees and wrapped gifts in falling snow",
+      // PLACEHOLDER: watermarked Getty preview (stock ID 1440702338), for pre-launch reference only.
+      // Replace public/hero/winter-hero.mp4 with the licensed file before the site goes live.
       video: {
-        desktop: "https://videos.pexels.com/video-files/30125806/12920148_1920_1080_24fps.mp4",
-        mobile: "https://videos.pexels.com/video-files/14854887/14854887-hd_720_1280_30fps.mp4",
-        poster: "https://images.pexels.com/videos/30125806/author-book-lovers-candle-arrangement-comfortable-30125806.jpeg?auto=compress&w=1920",
-      },
-      // Supplied by the client. Replace with a higher-resolution version (2400px+ wide) when available.
-      still: {
-        src: "/hero/winter-market.jpg",
-        alt: "An illustrated Christmas market in the snow, with a glowing tree, carousel and striped stalls",
+        desktop: "/hero/winter-hero.mp4",
+        mobile: "/hero/winter-hero.mp4",
+        poster: "/hero/winter-hero-poster.jpg",
       },
     },
     statement: { before: "Snow outside.", accent: "Warmth within." },
