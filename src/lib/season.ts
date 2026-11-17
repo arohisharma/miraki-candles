@@ -73,7 +73,7 @@ const CONTENT: Record<Season, SeasonContent> = {
     statement: { before: "Small flames,", accent: "slow evenings." },
     collage: [
       { image: unsplash("photo-1611485951311-c382a4c27047", 700), alt: "A candle on a blanket beside an open book", caption: "Read" },
-      { image: unsplash("photo-1648199905043-e913568802c9", 700), alt: "A candle on a bath tray", caption: "Soak" },
+      { image: unsplash("photo-1615224572974-ed13e9ab0312", 700), alt: "A bathtub surrounded by lit candles", caption: "Soak" },
       { image: unsplash("photo-1603897076223-17f346f02a03", 700), alt: "A candle wrapped as a gift", caption: "Give" },
     ],
     look: {
@@ -94,7 +94,7 @@ const CONTENT: Record<Season, SeasonContent> = {
       items: [
         { title: "For the one who has everything", pair: "rose-petal-jar", image: unsplash("photo-1603897076223-17f346f02a03", 900), alt: "A candle wrapped with twine" },
         { title: "For the bookworm", pair: "ocean-daisy-jar", image: unsplash("photo-1695755117860-da93d1aaf96b", 900), alt: "A candle on a blanket with a book" },
-        { title: "Little luxuries", pair: "lotus-bloom", image: unsplash("photo-1648199905043-e913568802c9", 900), alt: "A candle on a bath tray" },
+        { title: "Little luxuries", pair: "lotus-bloom", image: unsplash("photo-1615224572974-ed13e9ab0312", 900), alt: "A bathtub surrounded by lit candles" },
       ],
     },
     rituals: [
@@ -156,10 +156,10 @@ const CONTENT: Record<Season, SeasonContent> = {
       },
       {
         word: "Self-care.",
-        line: "A bath, a book, a slow Sunday.",
+        line: "A blanket, a book, a slow Sunday.",
         pair: "ocean-daisy-jar",
-        image: unsplash("photo-1648199905043-e913568802c9", 2000),
-        alt: "A candle on a wooden bath tray",
+        image: unsplash("photo-1611485951311-c382a4c27047", 2000),
+        alt: "A lit candle on a soft knit blanket beside an open book",
       },
       {
         word: "Gift.",

@@ -7,6 +7,8 @@ import { motion, useScroll, useSpring, useTransform, type MotionValue } from "mo
 import { getProduct } from "@/data/products";
 import { season, type Ritual } from "@/lib/season";
 
+const TINTS = ["bg-paper", "bg-blush", "bg-stone"];
+
 function Panel({
   ritual,
   index,
@@ -19,46 +21,51 @@ function Panel({
   progress: MotionValue<number>;
 }) {
   const product = getProduct(ritual.pair);
-  // Each photo drifts a little against the sideways motion for depth.
+  // A gentle drift inside the frame for depth; the photo itself is never cropped hard.
   const center = total > 1 ? index / (total - 1) : 0;
-  const imageX = useTransform(progress, [center - 0.5, center + 0.5], ["-8%", "8%"]);
-  const wordX = useTransform(progress, [center - 0.5, center + 0.5], ["18%", "-18%"]);
+  const imageY = useTransform(progress, [center - 0.5, center + 0.5], ["-4%", "4%"]);
+  const textX = useTransform(progress, [center - 0.5, center + 0.5], ["8%", "-8%"]);
 
   return (
-    <div className="relative h-full w-screen shrink-0 overflow-hidden">
-      <motion.div className="absolute -inset-x-[10%] inset-y-0" style={{ x: imageX }}>
-        <Image src={ritual.image} alt={ritual.alt} fill sizes="120vw" loading="eager" className="object-cover" />
-      </motion.div>
-      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/25" />
+    <div className={`relative h-full w-screen shrink-0 overflow-hidden ${TINTS[index % TINTS.length]}`}>
+      <div className="mx-auto flex h-full max-w-[90rem] flex-col justify-center gap-8 px-5 pb-16 pt-28 sm:px-10 md:flex-row md:items-center md:gap-16 md:pb-14 md:pt-32">
+        <div className="relative h-[46svh] w-full overflow-hidden bg-stone md:h-[68svh] md:w-auto md:aspect-[4/5]">
+          <motion.div className="absolute -inset-y-[6%] inset-x-0" style={{ y: imageY }}>
+            <Image
+              src={ritual.image}
+              alt={ritual.alt}
+              fill
+              sizes="(min-width: 768px) 45vw, 100vw"
+              loading="eager"
+              className="object-cover"
+            />
+          </motion.div>
+        </div>
 
-      <div className="relative flex h-full flex-col justify-end px-5 pb-14 text-paper sm:px-10 sm:pb-16">
-        <p className="text-[0.68rem] font-medium uppercase tracking-[0.3em] text-paper/70">
-          {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-        </p>
-        <motion.h3
-          style={{ x: wordX }}
-          className="mt-2 text-[clamp(5rem,20vw,22rem)] italic leading-[0.8] tracking-[-0.045em]"
-        >
-          {ritual.word}
-        </motion.h3>
-        <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <p className="font-serif text-lg sm:text-xl">{ritual.line}</p>
+        <motion.div style={{ x: textX }} className="md:flex-1">
+          <p className="label">
+            <span className="text-accent">{String(index + 1).padStart(2, "0")}</span> / {String(total).padStart(2, "0")}
+          </p>
+          <h3 className="mt-4 text-[clamp(3rem,7.5vw,7.5rem)] italic leading-[0.9] tracking-[-0.035em]">
+            {ritual.word}
+          </h3>
+          <p className="mt-4 font-serif text-lg text-muted sm:text-xl">{ritual.line}</p>
           {product && (
             <Link
               href={`/shop/${product.slug}`}
               data-cursor="Shop"
-              className="link self-start text-[0.65rem] font-medium uppercase tracking-[0.2em] sm:self-auto"
+              className="link mt-8 inline-block text-[0.68rem] font-medium uppercase tracking-[0.2em]"
             >
-              {product.name} →
+              Pairs with {product.name} →
             </Link>
           )}
-        </div>
+        </motion.div>
       </div>
     </div>
   );
 }
 
-/** Full-screen photos that slide sideways as the page scrolls down. */
+/** Moments that slide sideways as the page scrolls down: a framed photo and a few words each. */
 export default function RitualGallery() {
   const ref = useRef<HTMLElement>(null);
   const rituals = season.rituals;
@@ -81,15 +88,15 @@ export default function RitualGallery() {
   const bar = useTransform(scrollYProgress, [0, 1], [1 / n, 1]);
 
   return (
-    <section ref={ref} className="relative bg-ink" style={{ height: `${n * 190}vh` }} aria-label="Rituals">
+    <section ref={ref} className="relative bg-paper" style={{ height: `${n * 190}vh` }} aria-label="Rituals">
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         <motion.div className="flex h-full" style={{ x, width: `${n * 100}vw` }}>
           {rituals.map((r, i) => (
             <Panel key={r.word} ritual={r} index={i} total={n} progress={scrollYProgress} />
           ))}
         </motion.div>
-        <div className="absolute inset-x-5 bottom-6 h-px bg-paper/20 sm:inset-x-10">
-          <motion.div className="h-full origin-left bg-paper" style={{ scaleX: bar }} />
+        <div className="absolute inset-x-5 bottom-6 h-px bg-ink/10 sm:inset-x-10">
+          <motion.div className="h-full origin-left bg-ink" style={{ scaleX: bar }} />
         </div>
       </div>
     </section>
