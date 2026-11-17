@@ -22,7 +22,7 @@ export default function Home() {
       <GiftGuide />
       <CollectionReveal />
 
-      <div className="py-10 sm:py-14">
+      <div className="py-8 sm:py-10">
         <VelocityMarquee items={season.values} />
       </div>
 
