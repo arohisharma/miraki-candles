@@ -74,8 +74,8 @@ export default function Hero() {
       </motion.video>
 
       {/* shade so the type always reads */}
-      <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/25 to-transparent" />
-      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/5 to-black/45" />
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/15 to-transparent" />
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
       {SEASON === "winter" && <Snow count={110} />}
 
       <motion.div
@@ -99,7 +99,7 @@ export default function Hero() {
           />
         </motion.div>
 
-        <h1 className="mt-6 text-[clamp(4rem,13vw,13.5rem)] leading-[0.84] tracking-[-0.035em]">
+        <h1 className="mt-5 text-[clamp(2.9rem,6.4vw,6.75rem)] leading-[0.9] tracking-[-0.03em]">
           <span className="sr-only">
             {h.line1} {h.accentWord}.
           </span>
@@ -108,14 +108,14 @@ export default function Hero() {
           <Letters text={`${h.accentWord}.`} delay={t0 + 0.55} className="italic text-glow" />
         </h1>
 
-        <div className="mt-8 grid gap-6 md:mt-14 md:gap-8 md:grid-cols-12 md:items-end">
+        <div className="mt-7 grid gap-6 md:mt-10 md:gap-8 md:grid-cols-12 md:items-end">
           <motion.div
             className="md:col-span-6 lg:col-span-5"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.1, delay: t0 + 1, ease }}
           >
-            <p className="hidden max-w-sm text-[0.95rem] leading-relaxed text-paper/80 sm:block">{h.copy}</p>
+            <p className="hidden max-w-xs text-sm leading-relaxed text-paper/80 sm:block">{h.copy}</p>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-5 sm:mt-8">
               <Link href="/shop" className="btn btn-paper">Shop the collection</Link>
               <SoundToggle className="text-paper/85" />
@@ -128,16 +128,6 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      <motion.div
-        aria-hidden
-        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 lg:flex"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: t0 + 1.8 }}
-      >
-        <span className="text-[0.6rem] uppercase tracking-[0.35em] text-paper/60">Scroll</span>
-        <span className="scroll-cue h-10 w-px bg-paper/60" />
-      </motion.div>
     </section>
   );
 }

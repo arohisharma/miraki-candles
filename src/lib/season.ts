@@ -131,12 +131,13 @@ const CONTENT: Record<Season, SeasonContent> = {
       line1: "Light a little",
       accentWord: "warmth",
       copy: "Snow outside. A warm glow within. Candles poured for dreamy winter nights.",
-      image: "https://images.pexels.com/videos/6098142/pexels-photo-6098142.jpeg?auto=compress&w=2000",
-      alt: "Candles glowing among Christmas gifts and fairy lights",
+      image: "https://images.pexels.com/videos/30125806/author-book-lovers-candle-arrangement-comfortable-30125806.jpeg?auto=compress&w=2000",
+      alt: "Real candles burning by a window beside an open book and a cup of tea",
+      // Real flames only: never show battery or LED candles.
       video: {
-        desktop: "https://videos.pexels.com/video-files/6098142/6098142-hd_1920_1080_25fps.mp4",
+        desktop: "https://videos.pexels.com/video-files/30125806/12920148_1920_1080_24fps.mp4",
         mobile: "https://videos.pexels.com/video-files/14854887/14854887-hd_720_1280_30fps.mp4",
-        poster: "https://images.pexels.com/videos/6098142/pexels-photo-6098142.jpeg?auto=compress&w=1920",
+        poster: "https://images.pexels.com/videos/30125806/author-book-lovers-candle-arrangement-comfortable-30125806.jpeg?auto=compress&w=1920",
       },
     },
     statement: { before: "Snow outside.", accent: "Warmth within." },
@@ -150,8 +151,8 @@ const CONTENT: Record<Season, SeasonContent> = {
         word: "Snow day.",
         line: "Stay in. Light up.",
         pair: "rose-petal-jar",
-        image: "https://images.pexels.com/videos/14854887/aesthetic-book-reading-by-the-window-cosy-14854887.jpeg?auto=compress&w=2000",
-        alt: "Candles glowing on a windowsill beside dried flowers, with snow outside",
+        image: "https://images.pexels.com/videos/14886038/a-stay-home-aesthetic-book-reading-candle-14886038.jpeg?auto=compress&w=2000",
+        alt: "Candles on a windowsill beside a cosy throw, with snow outside",
       },
       {
         word: "Self-care.",
