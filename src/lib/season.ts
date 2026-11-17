@@ -31,7 +31,7 @@ type SeasonContent = {
   rituals: Ritual[];
   band: { before: string; accent: string; cta: string };
   footer: { before: string; accent: string };
-  banner?: { text: string; cta: string; href: string };
+  banner?: { text: string; short: string; cta: string; href: string };
   teaser?: {
     label: string;
     title: string;
@@ -92,7 +92,7 @@ const CONTENT: Record<Season, SeasonContent> = {
 
   winter: {
     hero: {
-      label: "The winter edit",
+      label: "The Winter Edit",
       labelRight: "Winter collection — dropping soon",
       line1: "Light a little",
       accentWord: "warmth",
@@ -135,6 +135,7 @@ const CONTENT: Record<Season, SeasonContent> = {
     footer: { before: "Poured by hand,", accent: "winter nights" },
     banner: {
       text: "The Miraki Winter Collection is dropping soon",
+      short: "Winter Collection — dropping soon",
       cta: "Be the first to know",
       href: "/contact",
     },

@@ -3,17 +3,17 @@ import { season } from "@/lib/season";
 
 export default function SeasonBanner() {
   if (!season.banner) return null;
-  const { text, cta, href } = season.banner;
+  const { text, short, cta, href } = season.banner;
   return (
-    <div className="bg-band px-5 py-2.5 text-center text-[0.7rem] font-medium uppercase tracking-[0.18em] text-paper">
-      <span className="mr-1.5 text-paper/60">✻</span>
-      {text}
+    <Link
+      href={href}
+      className="flex h-10 items-center justify-center gap-2 bg-band px-5 text-[0.66rem] font-medium uppercase tracking-[0.18em] text-paper"
+    >
+      <span className="text-paper/60">✻</span>
+      <span className="sm:hidden">{short}</span>
       <span className="hidden sm:inline">
-        {" — "}
-        <Link href={href} className="link link-quiet">
-          {cta}
-        </Link>
+        {text} — <span className="underline underline-offset-4">{cta}</span>
       </span>
-    </div>
+    </Link>
   );
 }

@@ -6,6 +6,7 @@ import ProductCard from "@/components/ProductCard";
 import ProductMedia from "@/components/ProductMedia";
 import Reveal from "@/components/Reveal";
 import { formatPrice, getProduct, products } from "@/data/products";
+import { SITE_URL } from "@/lib/site";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -14,7 +15,17 @@ export function generateStaticParams() {
 export async function generateMetadata(props: PageProps<"/shop/[slug]">): Promise<Metadata> {
   const { slug } = await props.params;
   const product = getProduct(slug);
-  return product ? { title: product.name, description: product.tagline } : {};
+  if (!product) return {};
+  return {
+    title: product.name,
+    description: `${product.tagline}. ${product.description}`,
+    alternates: { canonical: `/shop/${product.slug}` },
+    openGraph: {
+      title: `${product.name} — Miraki`,
+      description: product.tagline,
+      images: product.image ? [{ url: product.image, alt: `${product.name} candle` }] : undefined,
+    },
+  };
 }
 
 export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
@@ -23,6 +34,23 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
   if (!product) notFound();
 
   const related = products.filter((p) => p.slug !== product.slug).slice(0, 3);
+  // Structured data so search engines can show price and availability.
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    image: product.image ? [product.image.startsWith("http") ? product.image : `${SITE_URL}${product.image}`] : undefined,
+    brand: { "@type": "Brand", name: "Miraki" },
+    offers: {
+      "@type": "Offer",
+      url: `${SITE_URL}/shop/${product.slug}`,
+      priceCurrency: "USD",
+      price: product.price.toFixed(2),
+      availability: "https://schema.org/InStock",
+    },
+  };
+
   const details = [
     ["Size", product.size],
     ["Burn time", product.burnTime],
@@ -32,6 +60,10 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
       <div className="mx-auto max-w-[90rem] px-5 pb-24 pt-8 sm:px-10">
         <Link href="/shop" className="link link-quiet label">← Shop</Link>
 

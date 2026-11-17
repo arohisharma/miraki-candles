@@ -129,7 +129,52 @@ h1, h2, h3 {
   }
 }
 
+/* ---------- First-visit intro (home only, once per session) ---------- */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  background: #0d0b09;
+  color: #f5f5f2;
+  pointer-events: none;
+  animation: intro-lift 0.9s cubic-bezier(0.76, 0, 0.24, 1) 1.45s forwards;
+}
+[data-intro-seen] .intro { display: none; }
+.intro-flame {
+  transform-origin: 50% 100%;
+  animation: intro-ignite 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both, flicker 2.4s ease-in-out 0.8s infinite;
+}
+.intro-letter {
+  display: inline-block;
+  animation: intro-letter 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.intro-tag { animation: intro-letter 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.8s both; }
+@keyframes intro-lift { to { transform: translateY(-100%); } }
+@keyframes intro-ignite { from { transform: scale(0); opacity: 0; } }
+@keyframes intro-letter { from { opacity: 0; transform: translateY(0.35em); filter: blur(10px); } }
+@keyframes flicker {
+  0%, 100% { transform: scale(1, 1) rotate(0deg); }
+  25% { transform: scale(0.95, 1.06) rotate(-2deg); }
+  55% { transform: scale(1.04, 0.96) rotate(1.5deg); }
+  80% { transform: scale(0.98, 1.05) rotate(-1deg); }
+}
+
+/* ---------- Small details ---------- */
+.sound-bar { height: 3px; animation: sound-bar 0.9s ease-in-out infinite alternate; }
+@keyframes sound-bar { to { height: 14px; } }
+
+.scroll-cue { animation: scroll-cue 2.2s cubic-bezier(0.76, 0, 0.24, 1) infinite; }
+@keyframes scroll-cue {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .intro { display: none; }
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;

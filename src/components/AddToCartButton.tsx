@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { addToCart } from "@/lib/cart-store";
+import { chime } from "@/lib/sound";
 
 export default function AddToCartButton({ slug }: { slug: string }) {
   const [added, setAdded] = useState(false);
@@ -20,11 +21,12 @@ export default function AddToCartButton({ slug }: { slug: string }) {
         type="button"
         onClick={() => {
           addToCart(slug);
+          chime();
           setAdded(true);
         }}
         className="btn"
       >
-        {added ? "Added — add another" : "Add to cart"}
+        {added ? "Added — add another" : "Add to bag"}
       </button>
     </div>
   );
