@@ -1,103 +1,88 @@
 "use client";
 
-import { useRef } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useScroll, useSpring, useTransform, type MotionValue } from "motion/react";
 import { getProduct } from "@/data/products";
-import { season, type Ritual } from "@/lib/season";
+import { season } from "@/lib/season";
 
-const TINTS = ["bg-paper", "bg-blush", "bg-stone"];
-
-function Panel({
-  ritual,
-  index,
-  total,
-  progress,
-}: {
-  ritual: Ritual;
-  index: number;
-  total: number;
-  progress: MotionValue<number>;
-}) {
-  const product = getProduct(ritual.pair);
-  // A gentle drift inside the frame for depth; the photo itself is never cropped hard.
-  const center = total > 1 ? index / (total - 1) : 0;
-  const imageY = useTransform(progress, [center - 0.5, center + 0.5], ["-4%", "4%"]);
-  const textX = useTransform(progress, [center - 0.5, center + 0.5], ["8%", "-8%"]);
-
-  return (
-    <div className={`relative h-full w-screen shrink-0 overflow-hidden ${TINTS[index % TINTS.length]}`}>
-      <div className="mx-auto flex h-full max-w-[90rem] flex-col justify-center gap-8 px-5 pb-16 pt-28 sm:px-10 md:flex-row md:items-center md:gap-16 md:pb-14 md:pt-32">
-        <div className="relative h-[46svh] w-full overflow-hidden bg-stone md:h-[68svh] md:w-auto md:aspect-[4/5]">
-          <motion.div className="absolute -inset-y-[6%] inset-x-0" style={{ y: imageY }}>
-            <Image
-              src={ritual.image}
-              alt={ritual.alt}
-              fill
-              sizes="(min-width: 768px) 45vw, 100vw"
-              loading="eager"
-              className="object-cover"
-            />
-          </motion.div>
-        </div>
-
-        <motion.div style={{ x: textX }} className="md:flex-1">
-          <p className="label">
-            <span className="text-accent">{String(index + 1).padStart(2, "0")}</span> / {String(total).padStart(2, "0")}
-          </p>
-          <h3 className="mt-4 text-[clamp(3rem,7.5vw,7.5rem)] italic leading-[0.9] tracking-[-0.035em]">
-            {ritual.word}
-          </h3>
-          <p className="mt-4 font-serif text-lg text-muted sm:text-xl">{ritual.line}</p>
-          {product && (
-            <Link
-              href={`/shop/${product.slug}`}
-              data-cursor="Shop"
-              className="link mt-8 inline-block text-[0.68rem] font-medium uppercase tracking-[0.2em]"
-            >
-              Pairs with {product.name} →
-            </Link>
-          )}
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-/** Moments that slide sideways as the page scrolls down: a framed photo and a few words each. */
+/**
+ * The moments, all three in one view. Hover (or tap) a panel and it opens up to show the
+ * full photo and story while the others fold down to slim strips.
+ */
 export default function RitualGallery() {
-  const ref = useRef<HTMLElement>(null);
   const rituals = season.rituals;
-  const n = rituals.length;
-  const { scrollYProgress: raw } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  // A light spring on top of the scroll so the slide glides instead of tracking every flick.
-  const scrollYProgress = useSpring(raw, { stiffness: 70, damping: 22, mass: 0.6 });
-
-  // Each photo holds still for a moment before the next one slides in.
-  const HOLD = 0.12;
-  const input: number[] = [];
-  const output: string[] = [];
-  for (let i = 0; i < n; i++) {
-    const c = n > 1 ? i / (n - 1) : 0;
-    const at = `-${(i / n) * 100}%`;
-    input.push(Math.max(0, c - HOLD), Math.min(1, c + HOLD));
-    output.push(at, at);
-  }
-  const x = useTransform(scrollYProgress, input, output);
-  const bar = useTransform(scrollYProgress, [0, 1], [1 / n, 1]);
+  const [active, setActive] = useState(0);
 
   return (
-    <section ref={ref} className="relative bg-paper" style={{ height: `${n * 190}vh` }} aria-label="Rituals">
-      <div className="sticky top-0 h-[100svh] overflow-hidden">
-        <motion.div className="flex h-full" style={{ x, width: `${n * 100}vw` }}>
-          {rituals.map((r, i) => (
-            <Panel key={r.word} ritual={r} index={i} total={n} progress={scrollYProgress} />
-          ))}
-        </motion.div>
-        <div className="absolute inset-x-5 bottom-6 h-px bg-ink/10 sm:inset-x-10">
-          <motion.div className="h-full origin-left bg-ink" style={{ scaleX: bar }} />
-        </div>
+    <section className="mx-auto max-w-[90rem] px-5 py-16 sm:px-10 sm:py-20" aria-label="Rituals">
+      <div className="flex flex-col gap-3 md:h-[34rem] md:flex-row">
+        {rituals.map((r, i) => {
+          const open = i === active;
+          const product = getProduct(r.pair);
+          return (
+            <div
+              key={r.word}
+              onMouseEnter={() => setActive(i)}
+              onFocus={() => setActive(i)}
+              onClick={() => setActive(i)}
+              className="group relative min-h-0 cursor-pointer overflow-hidden bg-stone transition-[flex-grow,height] duration-[900ms] ease-pour max-md:h-[5.5rem] data-[open=true]:max-md:h-[26rem] md:h-auto md:flex-[1_1_0%] md:data-[open=true]:flex-[4_1_0%]"
+              data-open={open}
+            >
+              <Image
+                src={r.image}
+                alt={r.alt}
+                fill
+                sizes={open ? "(min-width: 768px) 60vw, 100vw" : "(min-width: 768px) 20vw, 100vw"}
+                loading="eager"
+                className={`object-cover transition-transform duration-[1400ms] ease-pour ${open ? "scale-100" : "scale-110"}`}
+              />
+              <div
+                aria-hidden
+                className={`absolute inset-0 transition-colors duration-700 ${
+                  open ? "bg-gradient-to-t from-black/60 via-transparent to-black/10" : "bg-black/40"
+                }`}
+              />
+
+              {/* collapsed: just the number and the word */}
+              <div
+                className={`absolute inset-0 flex items-end p-5 text-paper transition-opacity duration-500 max-md:items-center md:justify-center md:p-0 md:pb-8 ${
+                  open ? "pointer-events-none opacity-0" : "opacity-100"
+                }`}
+              >
+                <p className="font-serif text-2xl italic leading-none md:[writing-mode:vertical-rl] md:rotate-180 md:text-3xl">
+                  <span className="mr-3 font-sans text-[0.65rem] not-italic tracking-[0.2em] text-paper/70">
+                    0{i + 1}
+                  </span>
+                  {r.word}
+                </p>
+              </div>
+
+              {/* open: the full story */}
+              <div
+                className={`absolute inset-x-0 bottom-0 p-6 text-paper transition-all duration-700 ease-pour sm:p-8 ${
+                  open ? "translate-y-0 opacity-100 delay-200" : "pointer-events-none translate-y-4 opacity-0"
+                }`}
+              >
+                <p className="text-[0.65rem] font-medium uppercase tracking-[0.25em] text-paper/80">
+                  0{i + 1} / 0{rituals.length}
+                </p>
+                <h3 className="mt-2 text-5xl italic leading-[0.95] tracking-[-0.03em] sm:text-6xl">{r.word}</h3>
+                <p className="mt-2 font-serif text-lg text-paper/90">{r.line}</p>
+                {product && (
+                  <Link
+                    href={`/shop/${product.slug}`}
+                    data-cursor="Shop"
+                    tabIndex={open ? 0 : -1}
+                    className="link mt-5 inline-block text-[0.65rem] font-medium uppercase tracking-[0.2em]"
+                  >
+                    Pairs with {product.name} →
+                  </Link>
+                )}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
