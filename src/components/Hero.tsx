@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { products } from "@/data/products";
@@ -57,25 +58,41 @@ export default function Hero() {
       ref={ref}
       className="relative h-[100svh] min-h-[680px] overflow-hidden bg-[#0d0b09] text-paper"
     >
-      <motion.video
-        ref={videoRef}
-        className="absolute inset-0 h-full w-full object-cover"
-        style={{ scale: videoScale }}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        poster={h.video.poster}
-        aria-hidden
-      >
-        <source media="(max-width: 767px)" src={h.video.mobile} type="video/mp4" />
-        <source src={h.video.desktop} type="video/mp4" />
-      </motion.video>
+      {h.still ? (
+        <motion.div className="absolute inset-0" style={{ scale: videoScale }}>
+          <div className="hero-drift absolute inset-0">
+            <Image
+              src={h.still.src}
+              alt={h.still.alt}
+              fill
+              priority
+              quality={90}
+              sizes="100vw"
+              className="object-cover"
+            />
+          </div>
+        </motion.div>
+      ) : (
+        <motion.video
+          ref={videoRef}
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ scale: videoScale }}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster={h.video.poster}
+          aria-hidden
+        >
+          <source media="(max-width: 767px)" src={h.video.mobile} type="video/mp4" />
+          <source src={h.video.desktop} type="video/mp4" />
+        </motion.video>
+      )}
 
       {/* shade so the type always reads */}
-      <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/15 to-transparent" />
-      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-[#2a0f16]/60 via-[#2a0f16]/10 to-transparent" />
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#2a0f16]/60 via-transparent to-[#2a0f16]/20" />
       {SEASON === "winter" && <Snow count={110} />}
 
       <motion.div

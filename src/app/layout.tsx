@@ -35,13 +35,13 @@ export const metadata: Metadata = {
     siteName: "Miraki Candles",
     title: "Miraki — Handmade luxury candles",
     description,
-    images: [{ url: season.hero.image, width: 2000, height: 1333, alt: season.hero.alt }],
+    images: [{ url: season.hero.still?.src ?? season.hero.image, alt: season.hero.still?.alt ?? season.hero.alt }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Miraki — Handmade luxury candles",
     description,
-    images: [season.hero.image],
+    images: [season.hero.still?.src ?? season.hero.image],
   },
 };
 
