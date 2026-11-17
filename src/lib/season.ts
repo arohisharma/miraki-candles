@@ -16,7 +16,7 @@ export type Ritual = {
   alt: string;
 };
 
-export type Photo = { image: string; alt: string };
+export type Photo = { image: string; alt: string; caption?: string };
 
 /** A dot on a photo, positioned in % from the top-left. A product spot opens a buy card. */
 export type Spot = { x: number; y: number } & ({ product: string } | { label: string });
@@ -72,9 +72,9 @@ const CONTENT: Record<Season, SeasonContent> = {
     },
     statement: { before: "Small flames,", accent: "slow evenings." },
     collage: [
-      { image: unsplash("photo-1611485951311-c382a4c27047", 700), alt: "A candle on a blanket beside an open book" },
-      { image: unsplash("photo-1648199905043-e913568802c9", 700), alt: "A candle on a bath tray" },
-      { image: unsplash("photo-1603897076223-17f346f02a03", 700), alt: "A candle wrapped as a gift" },
+      { image: unsplash("photo-1611485951311-c382a4c27047", 700), alt: "A candle on a blanket beside an open book", caption: "Read" },
+      { image: unsplash("photo-1648199905043-e913568802c9", 700), alt: "A candle on a bath tray", caption: "Soak" },
+      { image: unsplash("photo-1603897076223-17f346f02a03", 700), alt: "A candle wrapped as a gift", caption: "Give" },
     ],
     look: {
       title: "Movie night,",
@@ -141,9 +141,9 @@ const CONTENT: Record<Season, SeasonContent> = {
     },
     statement: { before: "Snow outside.", accent: "Warmth within." },
     collage: [
-      { image: unsplash("photo-1612478700324-a39e1f1c4952", 700), alt: "A smiling snowman in a snowy garden" },
-      { image: unsplash("photo-1704799897069-5c8ac0c31c1b", 700), alt: "Someone in a red coat and hat among snowy trees" },
-      { image: unsplash("photo-1608735484399-b7ec8f9945c1", 700), alt: "Two mugs of hot chocolate with cinnamon" },
+      { image: unsplash("photo-1612478700324-a39e1f1c4952", 700), alt: "A smiling snowman in a snowy garden", caption: "Build a snowman" },
+      { image: unsplash("photo-1704799897069-5c8ac0c31c1b", 700), alt: "Someone in a red coat and hat among snowy trees", caption: "Wrap up warm" },
+      { image: unsplash("photo-1608735484399-b7ec8f9945c1", 700), alt: "Two mugs of hot chocolate with cinnamon", caption: "Come in for cocoa" },
     ],
     rituals: [
       {
