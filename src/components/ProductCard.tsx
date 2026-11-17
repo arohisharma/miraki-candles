@@ -3,7 +3,7 @@ import { formatPrice, type Product } from "@/data/products";
 import ProductMedia from "./ProductMedia";
 import QuickAdd from "./QuickAdd";
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({ product, badge }: { product: Product; badge?: string }) {
   const href = `/shop/${product.slug}`;
   return (
     <div className="group">
@@ -11,6 +11,11 @@ export default function ProductCard({ product }: { product: Product }) {
         <Link href={href} aria-label={product.name} data-cursor="View" className="absolute inset-0">
           <ProductMedia product={product} />
         </Link>
+        {badge && (
+          <span className="pointer-events-none absolute left-3 top-3 bg-paper px-2.5 py-1 text-[0.6rem] font-medium uppercase tracking-[0.2em] text-accent">
+            {badge}
+          </span>
+        )}
         <QuickAdd
           slug={product.slug}
           label={`Add to bag — ${formatPrice(product.price)}`}

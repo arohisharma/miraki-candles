@@ -2,12 +2,12 @@ import Link from "next/link";
 import CollectionReveal from "@/components/CollectionReveal";
 import GiftGuide from "@/components/GiftGuide";
 import Hero from "@/components/Hero";
+import JustDropped from "@/components/JustDropped";
 import Reveal from "@/components/Reveal";
 import RitualGallery from "@/components/RitualGallery";
 import ShopByMoment from "@/components/ShopByMoment";
 import ShopTheLook from "@/components/ShopTheLook";
 import Snow from "@/components/Snow";
-import StoryCollage from "@/components/StoryCollage";
 import VelocityMarquee from "@/components/VelocityMarquee";
 import { SEASON, season } from "@/lib/season";
 
@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <StoryCollage />
+      <JustDropped />
       <RitualGallery />
       <ShopTheLook />
       <ShopByMoment />

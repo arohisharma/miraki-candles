@@ -35,9 +35,8 @@ type SeasonContent = {
     /** A still image to use instead of the film (shown with a slow drift and snowfall). */
     still?: { src: string; alt: string };
   };
-  statement: { before: string; accent: string };
-  /** Three small photos floating around the statement. */
-  collage: Photo[];
+  /** "New collection, just dropped" announcement shown right after the hero. */
+  drop: { label: string; title: string; accent: string; line: string; cta: string };
   /** An annotated lifestyle photo: tap the dots to shop or read the story. */
   look: {
     title: string;
@@ -53,7 +52,16 @@ type SeasonContent = {
   band: { before: string; accent: string; cta: string };
   footer: { before: string; accent: string };
   banner?: { text: string; short: string; cta: string; href: string };
-  teaser?: { label: string; title: string; accent: string; notes: string[]; image: string; alt: string };
+  teaser?: {
+    label: string;
+    title: string;
+    accent: string;
+    notes: string[];
+    image: string;
+    alt: string;
+    cta: string;
+    href: string;
+  };
 };
 
 // All photos are Unsplash stock, standing in until Miraki has its own.
@@ -72,12 +80,13 @@ const CONTENT: Record<Season, SeasonContent> = {
         poster: "https://images.pexels.com/videos/5092038/noche-velas-velas-encendidas-5092038.jpeg?auto=compress&w=1920",
       },
     },
-    statement: { before: "Small flames,", accent: "slow evenings." },
-    collage: [
-      { image: unsplash("photo-1611485951311-c382a4c27047", 700), alt: "A candle on a blanket beside an open book", caption: "Read" },
-      { image: unsplash("photo-1615224572974-ed13e9ab0312", 700), alt: "A bathtub surrounded by lit candles", caption: "Soak" },
-      { image: unsplash("photo-1603897076223-17f346f02a03", 700), alt: "A candle wrapped as a gift", caption: "Give" },
-    ],
+    drop: {
+      label: "New in",
+      title: "New collection,",
+      accent: "just landed.",
+      line: "Freshly poured, in small batches. Find your new favourite.",
+      cta: "Shop new in",
+    },
     look: {
       title: "Movie night,",
       accent: "sorted.",
@@ -143,12 +152,13 @@ const CONTENT: Record<Season, SeasonContent> = {
         poster: "/hero/winter-hero-poster.jpg",
       },
     },
-    statement: { before: "Snow outside.", accent: "Warmth within." },
-    collage: [
-      { image: unsplash("photo-1612478700324-a39e1f1c4952", 700), alt: "A smiling snowman in a snowy garden", caption: "Build a snowman" },
-      { image: unsplash("photo-1704799897069-5c8ac0c31c1b", 700), alt: "Someone in a red coat and hat among snowy trees", caption: "Wrap up warm" },
-      { image: unsplash("photo-1608735484399-b7ec8f9945c1", 700), alt: "Two mugs of hot chocolate with cinnamon", caption: "Come in for cocoa" },
-    ],
+    drop: {
+      label: "Live now",
+      title: "New collection,",
+      accent: "just dropped.",
+      line: "The Winter Collection is here. Poured in small batches, so they will not last long.",
+      cta: "Shop the drop",
+    },
     rituals: [
       {
         word: "Snow day.",
@@ -197,18 +207,20 @@ const CONTENT: Record<Season, SeasonContent> = {
     band: { before: "Give the gift of a slow", accent: "winter", cta: "Shop gifts" },
     footer: { before: "Poured by hand,", accent: "winter nights" },
     banner: {
-      text: "The Miraki Winter Collection is dropping soon",
-      short: "Winter Collection — dropping soon",
-      cta: "Be the first to know",
-      href: "/contact",
+      text: "The Miraki Winter Collection has just dropped",
+      short: "Winter Collection — just dropped",
+      cta: "Shop now",
+      href: "/shop",
     },
     teaser: {
-      label: "Dropping soon",
+      label: "Just dropped",
       title: "The Winter",
       accent: "Collection",
       notes: ["Pine", "Clove", "Cinnamon", "Snow"],
       image: unsplash("photo-1733127040689-0e8a2823e391", 2400),
       alt: "A green candle beside pine branches",
+      cta: "Shop the collection",
+      href: "/shop",
     },
   },
 };

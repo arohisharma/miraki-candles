@@ -44,8 +44,8 @@ export default function CollectionReveal() {
             <em className="text-glow">{t.accent}</em>
           </h2>
           <p className="mt-6 font-serif text-base italic text-paper/80 sm:text-lg">{t.notes.join(" · ")}</p>
-          <Link href="/contact" className="btn btn-paper mt-10" data-cursor="Notify">
-            Be the first to know
+          <Link href={t.href} className="btn btn-paper mt-10" data-cursor="Shop">
+            {t.cta}
           </Link>
         </motion.div>
       </motion.div>
