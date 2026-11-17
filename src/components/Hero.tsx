@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
-import { unsplash } from "@/lib/unsplash";
+import { SEASON, season } from "@/lib/season";
 import ParallaxImage from "./ParallaxImage";
+import Snow from "./Snow";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -24,6 +25,7 @@ function Line({ children, delay }: { children: React.ReactNode; delay: number })
 }
 
 export default function Hero() {
+  const h = season.hero;
   return (
     <section className="mx-auto max-w-[90rem] px-5 pt-8 sm:px-10 sm:pt-14">
       <motion.div
@@ -32,14 +34,14 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, delay: 0.6 }}
       >
-        <span className="label">Handmade candles</span>
-        <span className="label hidden sm:block">Soy wax — Small batches</span>
+        <span className="label">{h.label}</span>
+        <span className="label hidden sm:block">{h.labelRight}</span>
       </motion.div>
 
       <h1 className="mt-6 text-[clamp(4.2rem,16.5vw,17rem)] leading-[0.82] tracking-[-0.04em]">
-        <Line delay={0.1}>Light a little</Line>
+        <Line delay={0.1}>{h.line1}</Line>
         <Line delay={0.24}>
-          <em className="text-accent">calm</em>.
+          <em className="text-accent">{h.accentWord}</em>.
         </Line>
       </h1>
 
@@ -50,10 +52,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, delay: 0.7, ease }}
         >
-          <p className="max-w-sm text-lg leading-relaxed">
-            Candles poured by hand in small batches. For the gift you actually want to give, the
-            book you cannot put down, and the bath nobody is allowed to interrupt.
-          </p>
+          <p className="max-w-sm text-lg leading-relaxed">{h.copy}</p>
           <div className="mt-8 flex flex-wrap items-center gap-8">
             <Link href="/shop" className="btn">Shop candles</Link>
             <Link href="/about" className="link text-sm">Our story</Link>
@@ -61,12 +60,14 @@ export default function Hero() {
         </motion.div>
 
         <ParallaxImage
-          src={unsplash("photo-1669334388727-9a3437e12fa2", 2000)}
-          alt="A lit candle glowing in a ribbed glass"
+          src={h.image}
+          alt={h.alt}
           className="aspect-[4/5] sm:aspect-[16/10] md:col-span-8"
           sizes="(min-width: 768px) 66vw, 100vw"
           priority
-        />
+        >
+          {SEASON === "winter" && <Snow count={90} />}
+        </ParallaxImage>
       </div>
     </section>
   );

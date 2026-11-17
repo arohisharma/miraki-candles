@@ -4,7 +4,10 @@ import ProductCard from "@/components/ProductCard";
 import Reveal from "@/components/Reveal";
 import Rituals from "@/components/Rituals";
 import ScrollWords from "@/components/ScrollWords";
+import Snow from "@/components/Snow";
+import WinterTeaser from "@/components/WinterTeaser";
 import { products } from "@/data/products";
+import { SEASON, season } from "@/lib/season";
 
 const values = [
   { title: "Soy wax", text: "Plant-based, slow and even to burn." },
@@ -20,18 +23,20 @@ export default function Home() {
 
       {/* Statement */}
       <section className="mx-auto max-w-[90rem] px-5 py-28 sm:px-10 sm:py-44">
-        <p className="label">Why we make them</p>
+        <p className="label">{season.statement.label}</p>
         <ScrollWords
           className="mt-8 max-w-6xl font-serif text-[clamp(2.2rem,5.2vw,5.2rem)] leading-[1.05] tracking-[-0.02em]"
-          text="A candle is a small permission. To stop. To sit down. To let the evening be about nothing in particular."
+          text={season.statement.text}
         />
       </section>
+
+      <WinterTeaser />
 
       {/* Rituals */}
       <div className="mx-auto max-w-[90rem] px-5 sm:px-10">
         <Reveal className="flex flex-col justify-between gap-6 border-t border-line pb-6 pt-10 md:flex-row md:items-end md:pb-10">
           <h2 className="max-w-3xl text-5xl leading-[0.95] tracking-[-0.03em] sm:text-7xl">
-            Made for the moments you keep for <em className="text-accent">yourself</em>.
+            {season.ritualsHeading.before} <em className="text-accent">{season.ritualsHeading.accent}</em>.
           </h2>
           <p className="label">Three rituals</p>
         </Reveal>
@@ -67,12 +72,13 @@ export default function Home() {
       </section>
 
       {/* The one loud moment on the page */}
-      <section className="bg-accent text-paper">
-        <Reveal className="mx-auto flex max-w-[90rem] flex-col gap-10 px-5 py-24 sm:px-10 sm:py-36 md:flex-row md:items-end md:justify-between">
+      <section className="relative overflow-hidden bg-band text-paper">
+        {SEASON === "winter" && <Snow count={80} />}
+        <Reveal className="relative mx-auto flex max-w-[90rem] flex-col gap-10 px-5 py-24 sm:px-10 sm:py-36 md:flex-row md:items-end md:justify-between">
           <h2 className="max-w-4xl text-6xl leading-[0.9] tracking-[-0.03em] sm:text-8xl lg:text-9xl">
-            Find the one that feels like <em>home</em>.
+            {season.band.before} <em>{season.band.accent}</em>.
           </h2>
-          <Link href="/shop" className="btn btn-paper shrink-0">Shop candles</Link>
+          <Link href="/shop" className="btn btn-paper shrink-0">{season.band.cta}</Link>
         </Reveal>
       </section>
     </>

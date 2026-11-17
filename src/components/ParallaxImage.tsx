@@ -15,6 +15,7 @@ export default function ParallaxImage({
   sizes = "100vw",
   priority,
   position,
+  children,
 }: {
   src: string;
   alt: string;
@@ -22,6 +23,8 @@ export default function ParallaxImage({
   sizes?: string;
   priority?: boolean;
   position?: string;
+  /** Overlay drawn above the photo, e.g. snowfall. */
+  children?: React.ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
@@ -40,6 +43,7 @@ export default function ParallaxImage({
           className="object-cover"
         />
       </motion.div>
+      {children}
       <motion.div
         aria-hidden
         className="absolute inset-0 origin-top bg-paper"

@@ -5,35 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { getProduct } from "@/data/products";
-import { unsplash } from "@/lib/unsplash";
+import { season } from "@/lib/season";
 
-// Stock photography from Unsplash, standing in until Miraki has its own lifestyle shots.
-const RITUALS = [
-  {
-    title: "The gift",
-    line: "Some things are easier to give than to say.",
-    body: "A candle says I thought about you, and I want your evenings to be soft. Each one leaves us boxed and finished by hand, ready to be handed over.",
-    pair: "diwali-gift-box",
-    image: unsplash("photo-1603897076223-17f346f02a03"),
-    alt: "A candle being wrapped with twine as a gift",
-  },
-  {
-    title: "A night of reading",
-    line: "One chapter becomes four.",
-    body: "The house goes quiet. The page turns gold. Somewhere past midnight you look up, and the flame is still keeping your place.",
-    pair: "rose-petal-jar",
-    image: unsplash("photo-1695755117860-da93d1aaf96b"),
-    alt: "An open book and a lit candle on a blanket",
-  },
-  {
-    title: "The long bath",
-    line: "Door closed. Water hot. Phone in another room.",
-    body: "Twenty minutes that belong to no one but you. Steam on the mirror, a slow scent in the air, and nothing at all to do.",
-    pair: "ocean-daisy-jar",
-    image: unsplash("photo-1615224572974-ed13e9ab0312"),
-    alt: "A bathtub surrounded by lit candles",
-  },
-];
+const RITUALS = season.rituals;
 
 /** Three moments. On desktop the photo stays pinned and cross-fades as each story scrolls past. */
 export default function Rituals() {

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { season } from "@/lib/season";
 
 export default function Footer() {
   return (
@@ -6,9 +7,9 @@ export default function Footer() {
       <div className="mx-auto max-w-[90rem] px-5 pt-16 sm:px-10 sm:pt-24">
         <div className="grid gap-12 md:grid-cols-12">
           <p className="font-serif text-3xl leading-tight md:col-span-6 sm:text-4xl">
-            Poured by hand,
+            {season.footer.before}
             <br />
-            for the quiet <em className="text-accent">moments</em>.
+            for the quiet <em className="text-accent">{season.footer.accent}</em>.
           </p>
           <div className="md:col-span-3">
             <p className="label">Explore</p>
