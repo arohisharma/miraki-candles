@@ -1,5 +1,6 @@
 import { getProduct } from "@/data/products";
 import { getStripe } from "@/lib/stripe";
+import { validOrigin } from "@/lib/site";
 
 type CartPayload = { items?: { slug: string; quantity: number }[] };
 
@@ -30,7 +31,7 @@ export async function POST(request: Request) {
     return Response.json({ error: "Cart is empty" }, { status: 400 });
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? new URL(request.url).origin;
+  const siteUrl = validOrigin(process.env.NEXT_PUBLIC_SITE_URL) ?? new URL(request.url).origin;
 
   try {
     const session = await getStripe().checkout.sessions.create({

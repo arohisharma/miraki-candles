@@ -7,6 +7,7 @@ import Cursor from "@/components/Cursor";
 import Providers from "@/components/Providers";
 import { SEASON, season } from "@/lib/season";
 import "./globals.css";
+import { SITE_URL } from "@/lib/site";
 
 const display = Instrument_Serif({
   variable: "--font-display",
@@ -24,7 +25,7 @@ const description =
   "Hand-poured soy candles, made in small batches for the quiet moments: the gift, the long bath, the book you cannot put down.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Miraki — Handmade luxury candles",
     template: "%s — Miraki",

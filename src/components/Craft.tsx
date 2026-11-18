@@ -13,7 +13,7 @@ const steps = [
 /** How a Miraki candle is made, from melted wax to a bow. */
 export default function Craft() {
   return (
-    <section aria-label="How it's made" className="bg-blush">
+    <section aria-label="How it's made" className="bg-paper">
       <Reveal className="flex flex-col gap-3 px-5 pb-6 pt-12 sm:flex-row sm:items-end sm:justify-between sm:px-8 sm:pb-8 sm:pt-16">
         <h2 className="text-3xl leading-none tracking-[-0.02em] sm:text-5xl">
           Poured slowly. <em className="text-accent">Wrapped with care.</em>
@@ -22,16 +22,18 @@ export default function Craft() {
       </Reveal>
 
       <ol className="grid grid-cols-2 lg:grid-cols-4">
-        {steps.map((s) => (
+        {steps.map((s, i) => (
           <li key={s.n} className="group relative aspect-[3/4] overflow-hidden bg-stone">
             <Image
               src={s.image}
               alt={s.alt}
               fill
               sizes="(min-width: 1024px) 25vw, 50vw"
-              className="object-cover transition-transform duration-[1800ms] ease-pour group-hover:scale-[1.05]"
+              className="object-cover [filter:saturate(0.8)_brightness(1.02)] transition-transform duration-[1800ms] ease-pour group-hover:scale-[1.05]"
             />
-            <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#2a0f16]/60 via-transparent to-transparent" />
+            {/* winter grade: green and red washes, so every photo sits in the site palette */}
+            <div aria-hidden className={`absolute inset-0 mix-blend-color ${i % 2 === 0 ? "bg-[#2f6a47] opacity-45" : "bg-[#d23a45] opacity-25"}`} />
+            <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#10261b]/55 via-transparent to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-4 text-paper sm:p-6">
               <p className="text-xs tabular-nums text-paper/70">{s.n}</p>
               <p className="font-serif text-3xl leading-none sm:text-4xl">{s.title}</p>
