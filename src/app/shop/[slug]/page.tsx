@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import AddToCartButton from "@/components/AddToCartButton";
 import ProductCard from "@/components/ProductCard";
 import ProductMedia from "@/components/ProductMedia";
@@ -72,6 +73,15 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
             <div className="group relative aspect-[4/5] overflow-hidden bg-stone">
               <ProductMedia product={product} sizes="(min-width: 768px) 50vw, 100vw" priority />
             </div>
+            {product.gallery && product.gallery.length > 1 && (
+              <div className="mt-3 grid grid-cols-3 gap-3">
+                {product.gallery.slice(1).map((src, i) => (
+                  <div key={src} className="relative aspect-square overflow-hidden bg-stone">
+                    <Image src={src} alt={`${product.name}, photo ${i + 2}`} fill sizes="20vw" className="object-cover" />
+                  </div>
+                ))}
+              </div>
+            )}
           </Reveal>
 
           <div className="md:py-10">

@@ -3,14 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
-import { MOMENTS, products, type Moment } from "@/data/products";
+import { MOMENTS, type Moment, type Product } from "@/data/products";
 import ProductCard from "./ProductCard";
 import Reveal from "./Reveal";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 /** The collection, browsed by the moment you are shopping for. */
-export default function ShopByMoment() {
+export default function ShopByMoment({ products, viewAllHref = "/shop" }: { products: Product[]; viewAllHref?: string }) {
   const [moment, setMoment] = useState<Moment | "All">("All");
   const shown = moment === "All" ? products : products.filter((p) => p.moments.includes(moment));
 
@@ -20,7 +20,7 @@ export default function ShopByMoment() {
         <h2 className="text-6xl leading-[0.9] tracking-[-0.03em] sm:text-8xl">
           Shop by <em className="text-accent">moment</em>
         </h2>
-        <Link href="/shop" className="link self-start text-sm md:self-auto">View all</Link>
+        <Link href={viewAllHref} className="link self-start text-sm md:self-auto">View all</Link>
       </Reveal>
 
       <LayoutGroup>
@@ -51,7 +51,7 @@ export default function ShopByMoment() {
           })}
         </div>
 
-        <motion.div layout className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        <motion.div layout className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout" initial={false}>
             {shown.map((p) => (
               <motion.div

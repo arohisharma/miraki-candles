@@ -31,7 +31,7 @@ export default function Footer() {
           <span>Handmade with love</span>
         </div>
       </div>
-      <p aria-hidden className="-mb-[0.2em] select-none text-center font-serif text-[27vw] leading-[0.85] tracking-[-0.04em]">
+      <p aria-hidden className="select-none pb-4 pt-6 text-center font-serif text-[27vw] leading-[1.05] tracking-[-0.04em]">
         Miraki
       </p>
     </footer>

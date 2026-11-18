@@ -27,6 +27,10 @@ export type Product = {
   /** Stock photo used instead of `image` while USE_SAMPLE_PHOTOS is on. */
   sampleImage?: string;
   featured?: boolean;
+  /** Extra photos shown as a gallery on the product page. */
+  gallery?: string[];
+  /** Set for products that belong to a seasonal collection page. */
+  collection?: "winter";
 };
 
 // NOTE: names, prices, sizes, burn times and scent notes below are PLACEHOLDERS written
@@ -113,6 +117,108 @@ const catalogue: Product[] = [
     sampleImage: unsplash("photo-1601405821471-517197a99c5d"),
     imagePosition: "50% 30%",
   },
+  {
+    slug: "reindeer-candle",
+    name: "Reindeer Candle",
+    tagline: "A sculpted reindeer with a candy-cane ribbon",
+    description: "Hand-poured soy wax reindeer, tied with red-and-white twine. Lovely lit, and just as sweet on a mantel among the pine.",
+    price: 16,
+    size: "3 in",
+    burnTime: "10 hours",
+    notes: ["Pine","Cranberry","Vanilla"],
+    mood: "Festive",
+    moments: ["Gifting","Snow day"],
+    color: "#c0392b",
+    tint: "#f6dcd5",
+    image: "/winter/product-1-1.jpg",
+    gallery: ["/winter/product-1-1.jpg","/winter/product-1-2.jpg"],
+    collection: "winter",
+  },
+  {
+    slug: "snowy-pine-tree",
+    name: "Snowy Pine Tree",
+    tagline: "Ribbed wax trees finished with a jingle bell",
+    description: "A tiered wax Christmas tree in ivory, sage or red, tied with a candy-stripe bow and a little gold bell.",
+    price: 22,
+    size: "4 in",
+    burnTime: "14 hours",
+    notes: ["Fir","Clove","Snow"],
+    mood: "Serene",
+    moments: ["Gifting","Snow day"],
+    color: "#7fae8f",
+    tint: "#e4efe6",
+    image: "/winter/product-2-1.jpg",
+    gallery: ["/winter/product-2-1.jpg","/winter/product-2-2.jpg","/winter/product-2-3.jpg","/winter/product-2-4.jpg"],
+    collection: "winter",
+  },
+  {
+    slug: "pinecone-candle",
+    name: "Pinecone Candle",
+    tagline: "Woodland pinecones in cream and cranberry",
+    description: "Pinecone candles poured by hand, in cream and deep cranberry. A cosy centrepiece for slow winter evenings.",
+    price: 20,
+    size: "3 in",
+    burnTime: "12 hours",
+    notes: ["Cedar","Cinnamon","Cranberry"],
+    mood: "Romantic",
+    moments: ["Movie night","Snow day"],
+    color: "#8c2f39",
+    tint: "#efdad4",
+    image: "/winter/product-3-1.jpg",
+    gallery: ["/winter/product-3-1.jpg","/winter/product-3-2.jpg"],
+    collection: "winter",
+  },
+  {
+    slug: "evergreen-glass-trio",
+    name: "Evergreen Glass Trio",
+    tagline: "Three little trees glowing in sand wax",
+    description: "Tree candles set in clear glass of sand-textured wax. Warm, twinkly and made for fairy-light nights.",
+    price: 34,
+    size: "Set of 3",
+    burnTime: "8 hours each",
+    notes: ["Balsam","Cedar","Vanilla"],
+    mood: "Festive",
+    moments: ["Movie night","Gifting"],
+    color: "#4c8c5c",
+    tint: "#e0ecd9",
+    image: "/winter/product-4-1.jpg",
+    gallery: ["/winter/product-4-1.jpg","/winter/product-4-2.jpg"],
+    collection: "winter",
+  },
+  {
+    slug: "frosted-fir-jar",
+    name: "Frosted Fir Jar",
+    tagline: "A snowy tree over icy-blue wax",
+    description: "A frosted fir sculpted over pale-blue layered wax in a glass jar, finished with a satin bow.",
+    price: 28,
+    size: "8 oz",
+    burnTime: "40 hours",
+    notes: ["Frosted fir","Juniper","White musk"],
+    mood: "Fresh",
+    moments: ["Snow day","Self-care"],
+    color: "#7fb3d9",
+    tint: "#dbe9f4",
+    image: "/winter/product-5-1.jpg",
+    gallery: ["/winter/product-5-1.jpg","/winter/product-5-2.jpg"],
+    collection: "winter",
+  },
+  {
+    slug: "winter-jar-set",
+    name: "Winter Jar Set",
+    tagline: "Holiday, Winter, Ginger + Spice and Pine + Snow",
+    description: "Four classic winter scents in clean glass jars. Light one, gift the rest.",
+    price: 64,
+    size: "Set of 4",
+    burnTime: "40 hours each",
+    notes: ["Ginger","Spice","Pine","Snow"],
+    mood: "Festive",
+    moments: ["Gifting","Self-care"],
+    color: "#d9a566",
+    tint: "#f6e8d2",
+    image: "/winter/product-6-1.jpg",
+    gallery: ["/winter/product-6-1.jpg","/winter/product-6-2.jpg"],
+    collection: "winter",
+  },
 ];
 
 export const products: Product[] = USE_SAMPLE_PHOTOS
@@ -126,3 +232,11 @@ export function getProduct(slug: string) {
 export function formatPrice(price: number) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(price);
 }
+
+/** Winter Collection: cover photos, the candles, and the gift boxes (local files in /public/winter). */
+export const winterCovers = [1, 2, 3, 4].map((n) => `/winter/cover-${n}.jpg`);
+export const winterGiftBoxes = [1, 2, 3, 4, 5, 6].map((n) => ({
+  image: `/winter/gift-${n}.jpg`,
+  alt: `Winter candle gift box ${n}`,
+}));
+export const winterProducts = products.filter((p) => p.collection === "winter");

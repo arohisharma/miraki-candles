@@ -151,6 +151,8 @@ const CONTENT: Record<Season, SeasonContent> = {
         mobile: "/hero/winter-hero.mp4",
         poster: "/hero/winter-hero-poster.jpg",
       },
+      // Photo hero (replaces the film for now). Remove `still` to bring the video back.
+      still: { src: unsplash("photo-1733127040689-0e8a2823e391", 2400), alt: "A green reindeer candle beside pine branches and pinecones" },
     },
     drop: {
       label: "Live now",

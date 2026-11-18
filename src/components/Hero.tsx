@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { products } from "@/data/products";
+import { getProduct } from "@/data/products";
 import { SEASON, season } from "@/lib/season";
 import ProductSpotlight from "./ProductSpotlight";
 import Snow from "./Snow";
@@ -51,7 +51,7 @@ export default function Hero() {
   const contentY = useTransform(scrollYProgress, [0, 1], [0, -120]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
-  const featured = products[0];
+  const featured = getProduct("snowy-pine-tree");
 
   return (
     <section
